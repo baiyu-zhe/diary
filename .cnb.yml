@@ -1,4 +1,4 @@
-master:
+main:
   push:
     "volume-cache":
       name: 云原生构建
