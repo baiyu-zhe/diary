@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 import { defineTeekConfig } from "vitepress-theme-teek/config";
 import { version } from "vitepress-theme-teek/es/version";
 import { Wallpaper } from "./ConfigHyde/Wallaper"; // 导入Wallaper模块
+import { Cover } from "./ConfigHyde/Cover"; // 导入Wallaper模块
 
 import { CommentData } from "./ConfigHyde/Comment"; //导入评论配置
 import { Nav } from "./ConfigHyde/Nav"; // 导入Nav模块
@@ -25,6 +26,7 @@ const description = [
   "Teek 拥有三种典型的知识管理形态：结构化、碎片化、体系化，可以轻松构建一个结构化知识库，适用个人博客、文档站、知识库等场景",
 ].toString();
 const CoverImgList = Wallpaper; // 获取壁纸列表
+const CoverList = Cover; // 获取壁纸列表
 
 
 const teekConfig = defineTeekConfig({
@@ -36,7 +38,7 @@ const teekConfig = defineTeekConfig({
     shape: "circle-rotate", // 头像风格：square 为方形头像，circle 为圆形头像，circle-rotate 可支持鼠标悬停旋转
     name: "One",
     slogan: "明心静性，爱自己",
-    circleBgImg: "/img/bg/14.webp", // 头像圆形背景图
+    circleBgImg: "/img/cover/14.webp", // 头像圆形背景图
     circleBgMask: false, // 头像圆形背景图是否显示遮罩层
     color: "#fff",
   },
@@ -81,6 +83,8 @@ const teekConfig = defineTeekConfig({
     statistics: {
       // provider: "busuanzi",
       provider: "vercount",
+      // provider: "busuanzi",
+      // url: "//bsz.eryajf.net/jsonp?callback=Busuanzicallback"
     },
     wordCount: true,
     readingTime: true,
@@ -211,9 +215,9 @@ const teekConfig = defineTeekConfig({
     },
 
     autoFrontmatter: true, // 自动生成 frontmatter
-    permalinkOption: {
-      notFoundDelayLoad: 1000, // 1秒后加载
-    },
+    // permalinkOption: {
+    //   notFoundDelayLoad: 1000, // 1秒后加载
+    // },
 
     // 自动格式formatter插件 添加文章封面图
     autoFrontmatterOption: {
