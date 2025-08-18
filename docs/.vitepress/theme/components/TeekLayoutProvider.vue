@@ -18,7 +18,7 @@ import TitleChange from "./TitleChange.vue" //导入网页标题变化
 import ScrollProgressBar from "./ScrollProgressBar.vue" //导入顶部滚动条组件
 
 // @ts-ignore
-import InformationCard from "./InformationCard.vue";  //导入信息卡片和舔狗日记组件
+// import InformationCard from "./InformationCard.vue";  //导入信息卡片和舔狗日记组件
 
 const ns = "layout-provider";
 const { frontmatter } = useData();
@@ -112,9 +112,7 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <BannerImgArrow />
     </template>
 
-    <template #teek-home-banner-after>
-      <InformationCard />
-    </template>
+
 
         
   </Teek.Layout>

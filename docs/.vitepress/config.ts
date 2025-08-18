@@ -25,11 +25,13 @@ const description = [
   "Teek 是一个基于 VitePress 构建的主题，是在默认主题的基础上进行拓展，支持 VitePress 的所有功能、配置",
   "Teek 拥有三种典型的知识管理形态：结构化、碎片化、体系化，可以轻松构建一个结构化知识库，适用个人博客、文档站、知识库等场景",
 ].toString();
-const CoverImgList = Wallpaper; // 获取壁纸列表
-const CoverList = Cover; // 获取壁纸列表
+const CoverImgList = Cover; // 获取壁纸列表
+// const CoverBgList = Wallpaper; // 获取壁纸列表
 
 
 const teekConfig = defineTeekConfig({
+  windowTransition: true,
+  
   sidebarTrigger: true,
   // author: { name: "Teeker", link: "https://github.com/Kele-Bingtang" },
   blogger: {
@@ -38,7 +40,7 @@ const teekConfig = defineTeekConfig({
     shape: "circle-rotate", // 头像风格：square 为方形头像，circle 为圆形头像，circle-rotate 可支持鼠标悬停旋转
     name: "One",
     slogan: "明心静性，爱自己",
-    circleBgImg: "/img/cover/14.webp", // 头像圆形背景图
+    circleBgImg: "https://img.onedayxyy.cn/images/TeekBg/14.webp", // 头像圆形背景图
     circleBgMask: false, // 头像圆形背景图是否显示遮罩层
     color: "#fff",
   },
@@ -77,29 +79,44 @@ const teekConfig = defineTeekConfig({
   // 首页尺寸变大
   themeSize: "large",
 
-  // 布蒜子统计分析
+  // // 布蒜子统计分析
+  // docAnalysis: {
+  //   createTime: "2021-10-19",
+  //   statistics: {
+  //     // provider: "busuanzi",
+  //     provider: "vercount",
+  //     // provider: "busuanzi",
+  //     // url: "//bsz.eryajf.net/jsonp?callback=Busuanzicallback"
+  //   },
+  //   wordCount: true,
+  //   readingTime: true,
+  //   // overrideInfo: [
+  //   //   { key: "lastActiveTime", value: (_, currentValue) => `${currentValue}前` },
+  //   //   { key: "totalPosts", label: "文章总数目" },
+  //   // ],
+  //   appendInfo: [{ key: "index", label: "序号", value: "One" }],
+  // },
+
+
+// 布蒜子统计分析
   docAnalysis: {
-    createTime: "2021-10-19",
+    createTime: "2025-02-26",
     statistics: {
-      // provider: "busuanzi",
-      provider: "vercount",
-      // provider: "busuanzi",
-      // url: "//bsz.eryajf.net/jsonp?callback=Busuanzicallback"
+      provider: "busuanzi",
+      url: "https://bszi.eryajf.net/jsonp?callback=BusuanziCallback",
+      tryRequest: true,
+      tryCount: 5,
+      tryIterationTime: 2000,
     },
     wordCount: true,
     readingTime: true,
-    // overrideInfo: [
-    //   { key: "lastActiveTime", value: (_, currentValue) => `${currentValue}前` },
-    //   { key: "totalPosts", label: "文章总数目" },
-    // ],
-    appendInfo: [{ key: "index", label: "序号", value: "One" }],
-  },
+  },  
 
 
   // 风险链接提示页
   riskLink: {
     enabled: true, //是否启用风险链接提示功能
-    whitelist: ["https://onedayxyy.cn/", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
+    whitelist: ["https://onedayxyy.cn/", "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
     blacklist: [], // 黑名单，匹配到的链接提示风险
   },
 
