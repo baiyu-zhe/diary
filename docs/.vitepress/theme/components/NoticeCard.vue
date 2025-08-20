@@ -1,35 +1,37 @@
 <template>
-  <!-- 重要公告卡片 -->
   <div class="announcement-card" v-if="isVisible">
-    <!-- 关闭按钮 -->
-<!--    <button class="close-btn" @click="isVisible = false">
-      <svg t="1755659636151" class="icon" viewBox="0 0 1027 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6058" width="200" height="200"><path d="M1002.17475 21.837105a74.286973 74.286973 0 0 0-105.103821 0L513.901173 405.006861 130.629374 21.837105a74.491058 74.491058 0 0 0-105.103821 105.103821L408.797352 510.212725 25.525553 893.382481a74.389015 74.389015 0 1 0 105.103821 105.103821L513.901173 615.316546l383.271799 383.169756a73.878803 73.878803 0 0 0 105.103821 0 74.18493 74.18493 0 0 0 0-105.103821L619.004994 510.212725l383.271799-383.271799a74.286973 74.286973 0 0 0 0-105.103821" fill="#999999" p-id="6059"></path></svg>
-    </button>-->
-
     <!-- 公告头部 -->
     <div class="announcement-header">
       <div class="announcement-tag">
-        <span>📢重要公告</span>
+        <svg class="tag-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z" fill="currentColor"/>
+        </svg>
+        <span>{{ noticeContent.title }}</span>
       </div>
-      <span class="announcement-date">2025-08-20</span>
+      <span class="announcement-date">{{ noticeContent.date }}</span>
     </div>
 
     <!-- 公告内容 -->
     <div class="announcement-content">
-      <h3 class="announcement-title">全网最美博客Teek🎉</h3>
+      <h3 class="announcement-title">
+        <svg class="title-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" fill="currentColor"/>
+        </svg>
+        {{ noticeContent.subtitle }}
+      </h3>
 
       <p class="announcement-text">
-        Teek~一款简约、唯美、丝滑且强大的VitePress主题博客(知识库&博客二合一) ，正在持续迭代更新，欢迎交流学习！
+        {{ noticeContent.content }}
       </p>
-
- 
 
       <!-- 底部操作区 -->
       <div class="announcement-footer">
-        <button class="announcement-button" @click="navigateTo('https://vp.teek.top/')">
-          <span>查看详情</span>
-          <i class="fa fa-arrow-right"></i>
-        </button>
+        <a class="announcement-button" :href="noticeContent.operationButtonPath" :target="getTargetValue()">
+          <span>{{ noticeContent.operationButtonName }}</span>
+          <svg class="button-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
@@ -37,86 +39,97 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import {useRouter, withBase} from "vitepress";
-import {isClient} from "vitepress-theme-teek";
-const router = useRouter(); // 获取 VitePress 路由实例
 
-// 控制组件显示状态
 const isVisible = ref(true);
 
-// 导航到指定路由
-const navigateTo = (path: string) => {
-  if (!isClient) return null;
+interface NoticeContent {
+  title: string;
+  date: string;
+  subtitle: string;
+  content: string;
+  fileName?: string;
+  operationButtonName: string;
+  operationButtonPath: string;
+}
 
-  const targetPath = withBase(path);
-  router.go(targetPath); // 使用 VitePress 路由的 goTo 方法
+const noticeContent: NoticeContent = {
+  title: '📢 重要公告',
+  date: '2025-8-20',
+  subtitle: '全网最美博客Teek🎉',
+  content: 'Teek~一款简约、唯美、丝滑且强大的VitePress主题博客(知识库&博客二合一) ，正在持续迭代更新，欢迎交流学习！',
+  fileName: '',
+  operationButtonName: '查看详情',
+  operationButtonPath: 'https://vp.teek.top/',
+};
+
+const isExternalLink = (): boolean => {
+  const url: string = noticeContent.operationButtonPath
+  return /^(https?:\/\/|\/\/)/.test(url);
+};
+
+const getTargetValue = (): string => {
+  return isExternalLink() ? '_blank' : '_self';
 };
 </script>
 
 <style scoped>
 .announcement-card {
-  width: var(--tk-home-card-width);
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --text-color: #334155;
+  --text-secondary: #64748b;
+  --bg-color: #ffffff;
+  --border-color: #e2e8f0;
+  --tag-bg: #eef2ff;
+  --tag-color: #4338ca;
+  
+  max-width: var(--tk-home-card-width, 380px);
+  width: 100%;
   margin: 0 auto;
-  background-color: var(--tk-bg-color-elm);
-  border-radius: var(--tk-home-card-border-radius);
-  box-shadow: var(--tk-card-shadow);
+  background: var(--bg-color);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
   overflow: hidden;
-  transition: box-shadow var(--tk-transition-duration-slow), transform var(--tk-transition-duration-slow);
-  position: relative; /* 为关闭按钮提供定位基准 */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-color);
 }
 
 .announcement-card:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  transform: translateY(-3px);
-}
-
-/* 关闭按钮样式 */
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 24px;
-  height: 24px;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  z-index: 10; /* 确保按钮在最上层 */
-}
-
-.close-btn:hover {
-  color: #dc2626; /*  hover时变红 */
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
 }
 
 .announcement-header {
-  background-color: rgba(59, 130, 246, 0.05);
-  padding: 16px 24px;
-  border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .announcement-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background-color: rgba(249, 115, 22, 0.1);
-  color: #F97316;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 4px 10px 4px 6px;
+  border-radius: 6px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-size: 13px;
+  font-weight: 600;
+  gap: 6px;
 }
 
-.announcement-tag i {
-  margin-right: 6px;
+.tag-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .announcement-date {
-  color: #6b7280;
-  font-size: 14px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .announcement-content {
@@ -124,65 +137,72 @@ const navigateTo = (path: string) => {
 }
 
 .announcement-title {
-  margin: 0 0 12px 0;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 0 16px 0;
+  font-size: 18px;
   font-weight: 700;
-  color: #111827;
-  transition: color 0.3s ease;
+  color: var(--text-color);
+  gap: 8px;
 }
 
-.announcement-card:hover .announcement-title {
-  color: #3B82F6;
+.title-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-color);
 }
 
 .announcement-text {
-  margin: 0 0 16px 0;
-  color: #374151;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.announcement-attachment {
-  margin: 0 0 10px 0;
-  display: flex;
-  align-items: center;
-  color: #3B82F6;
-  font-size: 14px;
-}
-
-.announcement-attachment i {
-  margin-right: 8px;
+  margin: 0 0 20px 0;
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 15px;
 }
 
 .announcement-footer {
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
   display: flex;
-  justify-content: end;
-  align-items: center;
+  justify-content: flex-end;
 }
 
 .announcement-button {
   display: inline-flex;
   align-items: center;
-  background: none;
-  border: none;
-  color: #3B82F6;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  padding: 0;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  gap: 6px;
 }
 
 .announcement-button:hover {
-  color: #2563eb;
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
-.announcement-button i {
-  margin-left: 6px;
-  font-size: 12px;
+.button-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .announcement-card {
+    --primary-color: #818cf8;
+    --primary-hover: #6366f1;
+    --text-color: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --bg-color: #1e293b;
+    --border-color: #334155;
+    --tag-bg: #312e81;
+    --tag-color: #c7d2fe;
+  }
+  
+  .announcement-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  }
 }
 </style>
