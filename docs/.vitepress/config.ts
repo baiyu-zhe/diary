@@ -30,6 +30,17 @@ const CoverImgList = Cover; // 获取壁纸列表
 
 
 const teekConfig = defineTeekConfig({
+
+  loading: true, // 启用 Loading 动画，为 false 则关闭 Loading 动画
+  // loading: "正在加载中...", // 修改 Loading 文案
+
+
+  themeEnhance: {
+    themeColor: {
+      defaultColorName: "ep-blue",   //默认主题色为蓝色
+    },
+  },
+  
   windowTransition: true,
   
   sidebarTrigger: true,
@@ -460,4 +471,10 @@ export default defineConfig({
       chunkSizeWarningLimit: 1500, // 限制警告的块大小
     },    
   },  
+
+  transformHtml: (code, id, context) => {
+    if (context.page !== "404.md") return code;
+    return code.replace("404 | ", "");
+  },
+
 });
