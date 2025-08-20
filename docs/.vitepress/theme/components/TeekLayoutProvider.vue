@@ -20,6 +20,8 @@ import ScrollProgressBar from "./ScrollProgressBar.vue" //导入顶部滚动条�
 // @ts-ignore
 // import InformationCard from "./InformationCard.vue";  //导入信息卡片和舔狗日记组件
 
+import NoticeCard from "./NoticeCard.vue";
+
 const ns = "layout-provider";
 const { frontmatter } = useData();
 
@@ -112,6 +114,10 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <BannerImgArrow />
     </template>
 
+    <!-- 自定义公告卡片 -->
+    <template #teek-home-card-before>
+      <NoticeCard />
+    </template>
 
 
         
