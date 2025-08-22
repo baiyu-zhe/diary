@@ -84,7 +84,7 @@ const teekConfig = defineTeekConfig({
   },
 
   page: {
-    pageSize: 18, //首页 Post 文章列表的分页配置
+    pageSize: 21, //首页 Post 文章列表的分页配置
   },
 
   // 首页尺寸变大
@@ -127,7 +127,7 @@ const teekConfig = defineTeekConfig({
   // 风险链接提示页
   riskLink: {
     enabled: true, //是否启用风险链接提示功能
-    whitelist: ["https://onedayxyy.cn/", "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
+    whitelist: ["https://onedayxyy.cn/", "https://img.onedayxyy.cn/", "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
     blacklist: [], // 黑名单，匹配到的链接提示风险
   },
 
@@ -220,18 +220,18 @@ const teekConfig = defineTeekConfig({
   },
 
 
-  // 公告
-  notice: {
-    enabled: true, // 是否启用公告功能
-    title: "公告", // 公告标题，支持函数式：需要和国际化搭配使用，根据不同语言环境返回不同标题
-    initOpen: true,
-    duration: 4000, // 弹框定时自动关闭，0 不自动消失
-    mobileMinify: false, // 移动端自动最小化
-    reopen: true, // 关闭公告弹框后，是否支持重新打开，如果为 false，则代表公告只显示一次
-    useStorage: true, // 是否使用 localStorage 存储公告状态，如：当打开公告弹框后，下次进来则自动打开弹框
-    twinkle: false, // 公告图标是否打开闪烁提示
-    position: "center", // 公告弹框出现位置
-  },
+  // // 公告
+  // notice: {
+  //   enabled: true, // 是否启用公告功能
+  //   title: "公告", // 公告标题，支持函数式：需要和国际化搭配使用，根据不同语言环境返回不同标题
+  //   initOpen: true,
+  //   duration: 4000, // 弹框定时自动关闭，0 不自动消失
+  //   mobileMinify: false, // 移动端自动最小化
+  //   reopen: true, // 关闭公告弹框后，是否支持重新打开，如果为 false，则代表公告只显示一次
+  //   useStorage: true, // 是否使用 localStorage 存储公告状态，如：当打开公告弹框后，下次进来则自动打开弹框
+  //   twinkle: false, // 公告图标是否打开闪烁提示
+  //   position: "center", // 公告弹框出现位置
+  // },
 
 
 

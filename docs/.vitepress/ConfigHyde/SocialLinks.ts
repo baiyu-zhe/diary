@@ -5,10 +5,10 @@ export const SocialLinks = [
     icon: { svg: gitee },
     link: "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public",
   },
-  {
-    icon: { svg: email },
-    link: "mailto:2675263825@qq.com",
-  },
+  // {
+  //   icon: { svg: email },
+  //   link: "mailto:2675263825@qq.com",
+  // },
   // {
   //   icon: { svg: WhatsApp },
   //   link: "https://api.whatsapp.com/send/?phone=13527063419&text=Hello",

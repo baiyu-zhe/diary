@@ -35,7 +35,7 @@ const teekBlogCommonConfig: TeekConfig = {
 
   banner: {
     enabled: true,
-    name: "One 🎉", // Banner 标题，默认读取 vitepress 的 title 属性
+    name: "One Blog 🎉", // Banner 标题，默认读取 vitepress 的 title 属性
     bgStyle: "fullImg", // Banner 背景风格：pure 为纯色背景，partImg 为局部图片背景，fullImg 为全屏图片背景
     pureBgColor: "#28282d", // Banner 背景色，bgStyle 为 pure 时生效
     imgSrc: Wallpaper, // Banner 图片链接。bgStyle 为 partImg 或 fullImg 时生效
@@ -60,9 +60,9 @@ const teekBlogCommonConfig: TeekConfig = {
   // 首页顶部按 F11 开启壁纸模式
   wallpaper: {
     enabled: true, // 是否启用壁纸模式
-    hideBanner: false, // 开启壁纸模式后，全屏是否显示打字机文案，
+    hideBanner: true, // 开启壁纸模式后，全屏是否显示打字机文案，
     hideMask: true, // 开启壁纸模式后，是否隐藏 Banner 或 bodyBgImage 的遮罩层，则确保 banner.mask 和 bodyBgImage.mask 为 true 才生效
-    hideWaves: false, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
+    hideWaves: true, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
   },
   // footerInfo: {
   //   customHtml: `<span id="runtime"></span>`, // 需要搭配 .vitepress/theme/helper/useRuntime.ts 使用

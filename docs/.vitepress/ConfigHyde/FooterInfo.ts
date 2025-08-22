@@ -27,7 +27,7 @@ export const FooterInfo = {
   },
   bottomMessage: [
     `<script id="LA-DATA-WIDGET" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/3LmZHLhDZIDpMaT0/quote.js?theme=#1690FF,#333333,#999999,#007BFF,#FFFFFF,#1690FF,12&f=12&display=0,0,1,1,1,1,1,1"></script>`,
-    `<span id="runtime"></span>(●'◡'●)`,
+    // `<span id="runtime"></span>(●'◡'●)`,
     "初闻不知曲中意，再听已是曲中人",
   ],
   copyright: {
