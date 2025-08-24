@@ -19,6 +19,8 @@ import timeline from "vitepress-markdown-timeline"; // 导入时间线插件
 import type { HeadConfig } from "vitepress"; // 在文件顶部添加类型导入
 import { HeadData } from "./ConfigHyde/Head"; // 导入 HeadData 导入和类型断言
 
+import { createRewrites } from "vitepress-theme-teek/config";
+import Sidebar from "vitepress-plugin-sidebar-resolve";
 
 const description = [
   "欢迎来到 vitepress-theme-teek 使用文档",
@@ -306,6 +308,10 @@ const teekConfig = defineTeekConfig({
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  rewrites: createRewrites({
+    srcDir: 'docs',
+  }),
+
   extends: teekConfig,
   title: "One",
   description: description,
@@ -442,6 +448,14 @@ export default defineConfig({
     build: {
       chunkSizeWarningLimit: 1500, // 限制警告的块大小
     },    
+
+    plugins: [
+      Sidebar({
+        resolveRule: "rewrites",
+        checkRewritesPrefix: true,
+      }),
+    ],
+
   },  
 
   transformHtml: (code, id, context) => {
