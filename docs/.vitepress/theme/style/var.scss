@@ -1,5 +1,9 @@
 /* var.scss */
 :root {
+
+  // --tk-home-max-width: max(70%, 1330px); /* 现代浏览器会使用这个值 */
+  // --tk-home-max-width:  calc(100% - 100% / 3);
+  
   --vp-c-brand-1: var(--vp-c-indigo-2);
 
   // --vp-c-indigo-2: #299764; //预设hover

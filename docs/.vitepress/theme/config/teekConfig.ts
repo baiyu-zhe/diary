@@ -30,6 +30,13 @@ export const teekDocConfig: TeekConfig = {
 
 // 博客基础配置
 const teekBlogCommonConfig: TeekConfig = {
+  themeEnhance: {
+    layoutSwitch: {
+      defaultMode: "bothWidthAdjustable",
+    },
+  },
+
+
   teekHome: true,
   vpHome: false,
 
@@ -62,7 +69,7 @@ const teekBlogCommonConfig: TeekConfig = {
     enabled: true, // 是否启用壁纸模式
     hideBanner: true, // 开启壁纸模式后，全屏是否显示打字机文案，
     hideMask: true, // 开启壁纸模式后，是否隐藏 Banner 或 bodyBgImage 的遮罩层，则确保 banner.mask 和 bodyBgImage.mask 为 true 才生效
-    hideWaves: true, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
+    // hideWaves: true, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
   },
   // footerInfo: {
   //   customHtml: `<span id="runtime"></span>`, // 需要搭配 .vitepress/theme/helper/useRuntime.ts 使用
