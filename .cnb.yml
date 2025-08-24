@@ -63,15 +63,15 @@ main:
             info: CUSTOM_ENV_BUILD_TIME
 
             
-        - name: 钉钉通知
-          image: tencentcom/dingtalk-bot-msg:latest
-          settings:
-            content: "「Teek-one Blog」发布完成，耗时: ${CUSTOM_ENV_BUILD_TIME}"
-            c_type: "text" # 支持: text, markdown, link, actionCard, multiActionCard, feedCard
-            secret: $SECRET
-            webhook: $WEBHOOK
-            isAtAll: false
-            debug: false # 新增: 是否启用调试模式
+        # - name: 钉钉通知
+        #   image: tencentcom/dingtalk-bot-msg:latest
+        #   settings:
+        #     content: "「Teek-one Blog」发布完成，耗时: ${CUSTOM_ENV_BUILD_TIME}"
+        #     c_type: "text" # 支持: text, markdown, link, actionCard, multiActionCard, feedCard
+        #     secret: $SECRET
+        #     webhook: $WEBHOOK
+        #     isAtAll: false
+        #     debug: false # 新增: 是否启用调试模式
 
         # - name: 🔔 发布通知  
         #   image: tencentcom/wecom-message
