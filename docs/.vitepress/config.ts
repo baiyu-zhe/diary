@@ -238,10 +238,15 @@ const teekConfig = defineTeekConfig({
 
 
   vitePlugins: {
+    permalink: true,
+    sidebar: true,
+
     sidebarOption: {
-      // initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
+      initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
       collapsed: true, //打开侧边栏自动收缩功能
       ignoreList: [/^_.*$/],
+      resolveRule: "rewrites",
+      checkRewritesPrefix: true,     
     },
 
     autoFrontmatter: true, // 自动生成 frontmatter
@@ -449,12 +454,12 @@ export default defineConfig({
       chunkSizeWarningLimit: 1500, // 限制警告的块大小
     },    
 
-    plugins: [
-      Sidebar({
-        resolveRule: "rewrites",
-        checkRewritesPrefix: true,
-      }),
-    ],
+    // plugins: [
+    //   Sidebar({
+    //     resolveRule: "rewrites",
+    //     checkRewritesPrefix: true,
+    //   }),
+    // ],
 
   },  
 
