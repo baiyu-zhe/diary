@@ -215,7 +215,8 @@ def main():
         '-d', '--directory',
         type=str,
         default=r"D:\我的开源项目\vitepress-theme-teek-one-public\docs\10.Teek",
-        help='要处理的目录路径 (默认: D:\\我的开源项目\\vitepress-theme-teek-one-public\\docs\\10.Teek)'
+        # help='要处理的目录路径 (默认: D:\\我的开源项目\\vitepress-theme-teek-one-public\\docs\\10.Teek)'
+        help='要处理的目录路径 (默认: D:\\我的开源项目\\vitepress-theme-teek-one-public\\docs\\20.文档)'
     )
     
     parser.add_argument(

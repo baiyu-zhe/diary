@@ -14,6 +14,9 @@ importers:
       vitepress-markdown-timeline:
         specifier: ^1.2.2
         version: 1.2.2
+      vitepress-plugin-auto-frontmatter:
+        specifier: ^1.0.11
+        version: 1.0.11
       vitepress-plugin-group-icons:
         specifier: ^1.6.0
         version: 1.6.0(markdown-it@14.1.0)(vite@5.4.19(sass@1.89.1))
