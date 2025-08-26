@@ -214,14 +214,14 @@ def main():
     parser.add_argument(
         '-d', '--directory',
         type=str,
-        default=r"D:\我的开源项目\vitepress-theme-teek-one-public\docs\20.文档",
-        help='要处理的目录路径 (默认: D:\\我的开源项目\\vitepress-theme-teek-one-public\\docs\\20.文档)'
+        default=r"D:\我的开源项目\vitepress-theme-teek-one-public\docs\10.Teek",
+        help='要处理的目录路径 (默认: D:\\我的开源项目\\vitepress-theme-teek-one-public\\docs\\10.Teek)'
     )
     
     parser.add_argument(
         '-p', '--prefix',
         type=str,
-        default='file',
+        default='pages',
         help='一级前缀字符 (默认: p)'
     )
     
