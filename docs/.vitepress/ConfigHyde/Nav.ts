@@ -9,7 +9,7 @@ export const Nav = [
           <span>Teek</span>
         </div>
         `,
-      link: '/file/teek',
+      link: '/teek/teek',
     },
 
 
@@ -26,7 +26,7 @@ export const Nav = [
               <span>运维</span>
             </div>
             `,
-          link: '/file/linux',
+          link: '/linux/linux',
         },
         {
           text: `
@@ -35,7 +35,7 @@ export const Nav = [
               <span>前端</span>
             </div>
             `,
-          link: '/file/qianduan',
+          link: '/qianduan/qianduan',
         },
                 {
           text: `
@@ -44,7 +44,7 @@ export const Nav = [
               <span>编程</span>
             </div>
             `,
-          link: '/file/code',
+          link: '/code/code',
         },
         {
           text: `
@@ -53,7 +53,7 @@ export const Nav = [
               <span>黑客</span>
             </div>
             `,
-          link: '/file/heike',
+          link: '/hacker/hacker',
         },
       ],
     },  
@@ -69,7 +69,7 @@ export const Nav = [
               <span>博客搭建</span>
             </div>
             `,
-          link: '/file/blog',
+          link: '/zhuanti/blog',
         },
         {
           text: `
@@ -78,7 +78,7 @@ export const Nav = [
               <span>前端demo</span>
             </div>
             `,
-          link: '/file/qianduan-demo',
+          link: '/zhuanti/qianduan-demo',
         },
         {
           text: `
@@ -87,7 +87,7 @@ export const Nav = [
               <span>Git</span>
             </div>
             `,
-          link: '/file/git',
+          link: '/zhuanti/git',
         },
         {
           text: `
@@ -96,7 +96,7 @@ export const Nav = [
               <span>面试</span>
             </div>
             `,
-          link: '/file/mianshi',
+          link: '/zhuanti/mianshi',
         },
         {
           text: `
@@ -105,7 +105,7 @@ export const Nav = [
               <span>NAS</span>
             </div>
             `,
-          link: '/file/NAS',
+          link: '/zhuanti/NAS',
         },
         {
           text: `
@@ -114,7 +114,7 @@ export const Nav = [
               <span>脚本</span>
             </div>
             `,
-          link: '/file/jiaoben',
+          link: '/zhuanti/jiaoben',
         },
         {
           text: `
@@ -123,7 +123,7 @@ export const Nav = [
               <span>工具</span>
             </div>
             `,
-          link: '/file/tools',
+          link: '/tools/tools',
         },
         {
           text: `
@@ -132,7 +132,7 @@ export const Nav = [
               <span>开源项目</span>
             </div>
             `,
-          link: '/file/opensource',
+          link: '/zhuanti/opensource',
         },        
       ],
     },  
@@ -158,7 +158,7 @@ export const Nav = [
                   <span>相册</span>
                 </div>
                 `,
-              link: '/file/photo',
+              link: '/yule/photo',
             },
             {
               text: `
@@ -167,7 +167,7 @@ export const Nav = [
                   <span>电影</span>
                 </div>
                 `,
-              link: '/file/movie',
+              link: '/yule/movie',
             },
             {
               text: `
@@ -176,7 +176,7 @@ export const Nav = [
                   <span>音乐</span>
                 </div>
                 `,
-              link: '/file/music',
+              link: '/yule/music',
             },
           ],
         },
@@ -191,7 +191,7 @@ export const Nav = [
                   <span>精神小屋</span>
                 </div>
                 `,
-              link: '/file/love',
+              link: '/love/love',
             },
             {
               text: `
@@ -200,7 +200,7 @@ export const Nav = [
                   <span>时间管理</span>
                 </div>
                 `,
-              link: '/file/time-plan',
+              link: '/love/time-plan',
             },
             {
               text: `
@@ -209,7 +209,7 @@ export const Nav = [
                   <span>情感文案</span>
                 </div>
                 `,
-              link: '/file/wenan',
+              link: '/love/wenan',
             },
             // { text: "💖情侣空间", link: "https://fxj.onedayxyy.cn/" },
           ],
@@ -229,7 +229,7 @@ export const Nav = [
               <span>旅行</span>
             </div>
             `,
-          link: '/file/travel',
+          link: '/xingqu/travel',
         },
         {
           text: `
@@ -238,7 +238,7 @@ export const Nav = [
               <span>读书</span>
             </div>
             `,
-          link: '/file/reading',
+          link: '/xingqu/reading',
         },
       ],
     },  
@@ -293,11 +293,11 @@ export const Nav = [
     {
       text: '🍷关于',
       items: [
-        { text: '👋关于我', link: '/file/about-me' },
-        { text: '🎉关于本站', link: '/file/about-website' },
-        { text: '🌐网站导航', link: '/file/websites' },          
-        { text: "👂留言区", link: "/file/liuyanqu" },
-        { text: "💡思考", link: "/file/thinking" },
+        { text: '👋关于我', link: '/about/me' },
+        { text: '🎉关于本站', link: '/about/website' },
+        { text: '🌐网站导航', link: '/about/websites' },          
+        { text: "👂留言区", link: "/about/liuyanqu" },
+        { text: "💡思考", link: "/about/thinking" },
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">

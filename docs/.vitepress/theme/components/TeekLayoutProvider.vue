@@ -17,6 +17,11 @@ import NoticeContent from "./NoticeContent.vue"; //导入公告组件
 import TitleChange from "./TitleChange.vue" //导入网页标题变化
 import ScrollProgressBar from "./ScrollProgressBar.vue" //导入顶部滚动条组件
 
+
+import BackTop from "./BackTop.vue"; //导入回到顶部组件
+import Clock from "./Clock.vue"; // 时钟组件
+
+
 // @ts-ignore
 // import InformationCard from "./InformationCard.vue";  //导入信息卡片和舔狗日记组件
 
@@ -119,7 +124,15 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <NoticeCard />
     </template>
 
+    <!-- 回到顶部组件 -->
+    <template #teek-home-bottom-after>
+      <BackTop />
+    </template>
 
+    <!-- 右上角时钟组件 -->
+    <template #nav-bar-content-after>
+      <Clock/>
+    </template>
         
   </Teek.Layout>
 </template>

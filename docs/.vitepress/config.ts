@@ -8,8 +8,6 @@ import { CommentData } from "./ConfigHyde/Comment"; //导入评论配置
 import { Nav } from "./ConfigHyde/Nav"; // 导入Nav模块
 import { SocialLinks } from "./ConfigHyde/SocialLinks"; //导入社交链接配置
 
-import AutoFrontmatter, {FileInfo} from "vitepress-plugin-auto-frontmatter";
-import { useTransformByRules, type TransformRule } from "./theme/composables/useTransform";
 
 
 import {
@@ -23,7 +21,13 @@ import type { HeadConfig } from "vitepress"; // 在文件顶部添加类型导�
 import { HeadData } from "./ConfigHyde/Head"; // 导入 HeadData 导入和类型断言
 
 import { createRewrites } from "vitepress-theme-teek/config";
-import Sidebar from "vitepress-plugin-sidebar-resolve";
+
+import AutoFrontmatter, {FileInfo} from "vitepress-plugin-auto-frontmatter";
+import { useTransformByRules, type TransformRule } from "./theme/composables/useTransform";
+
+
+
+
 
 const description = [
   "欢迎来到 vitepress-theme-teek 使用文档",
@@ -33,9 +37,15 @@ const description = [
 const CoverImgList = Cover; // 获取壁纸列表
 // const CoverBgList = Wallpaper; // 获取壁纸列表
 
-
-
+ 
 const teekConfig = defineTeekConfig({
+  // // 首页顶部按 F11 开启壁纸模式
+  // 首页顶部按 F11 开启壁纸模式
+  wallpaper: {
+    enabled: true, // 是否启用壁纸模式
+    hideBanner: false, // 开启壁纸模式后，全屏是否显示打字机文案，
+    hideMask: true, // 开启壁纸模式后，是否隐藏 Banner 或 bodyBgImage 的遮罩层，则确保 banner.mask 和 bodyBgImage.mask 为 true 才生效
+  },
 
   loading: true, // 启用 Loading 动画，为 false 则关闭 Loading 动画
   // loading: "正在加载中...", // 修改 Loading 文案
@@ -144,19 +154,19 @@ const teekConfig = defineTeekConfig({
     return {
       type: "tip",
       title: "声明",
-      text: `<p>作者：One</p>
-             <p>版权：此文章版权归 One 所有，如有转载，请注明出处!</p>
-             <p style="margin-bottom: 0">链接：可点击右上角分享此页面复制文章链接</p>
+      text: `<p>作者：<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One</a></p>
+             <p style="margin-bottom: 0">链接：可点击右上角分享此页面复制文章链接😜</p>
+             <p>版权：本博客所有文章除特别声明外，均采用<a href="http://www.suncai.net/PubLicense/CCBY40.html" target="_blank" rel="noopener noreferrer">CCBY-NC-SA4.O</a>许可协议。转载请注明来自<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One Blog</a></p>
             `,
     };
   },
 
-
+  // backTopDone: TkMessage => TkMessage.success("返回顶部"),
   
-  //右下角回到顶部配置。
+  // //右下角回到顶部配置。
   backTop: {
     enabled: true, // 是否启动回到顶部功能
-    content: "progress", // 回到顶部按钮的显示内容，可选配置 progress | icon
+    content: "icon", // 回到顶部按钮的显示内容，可选配置 progress | icon
     done: TkMessage => TkMessage.success("返回顶部成功"), // 回到顶部后的回调
   },
 
@@ -245,12 +255,13 @@ const teekConfig = defineTeekConfig({
     permalink: true,
     sidebar: true,
 
+
     sidebarOption: {
-      initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
+      // initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
       collapsed: true, //打开侧边栏自动收缩功能
       ignoreList: [/^_.*$/],
       resolveRule: "rewrites",
-      checkRewritesPrefix: true,     
+      checkRewritesPrefix: true,    
     },
 
     autoFrontmatter: true, // 自动生成 frontmatter
@@ -273,7 +284,7 @@ const teekConfig = defineTeekConfig({
         
        return Object.keys(transformResult).length ? transformResult : undefined;
       },
-    },   
+    }, 
   },
 
   markdown: {
@@ -385,7 +396,7 @@ export default defineConfig({
     //   provider: "local",
     // },
 
-// algolia搜索
+    // algolia搜索
     search: {
       provider: 'algolia',
       options: {
@@ -476,8 +487,20 @@ export default defineConfig({
                   // { folderName: "10.笔记专栏/99.博客搭建", prefix: "/note", clear: true }, // 清空 permalink，优先级最高
                   // { folderName: "20.文档", prefix: "/note", clear: true }, // 清空 permalink，优先级最高
                   // { folderName: "01.前端/01.vite/", prefix: "/testa/$uuid5/$uuid1/$uuid10/$uuid99", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "10.Teek", prefix: "/pages/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "20.文档", prefix: "/files/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "10.运维", prefix: "/linux/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "20.前端", prefix: "/qianduan/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "30.编程", prefix: "/code/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "35.黑客", prefix: "/hacker/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "40.专题", prefix: "/zhuanti/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "50.工具", prefix: "/tools/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "60.生活", prefix: "/life/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "70.精神小屋", prefix: "/love/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "80.娱乐", prefix: "/yule/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "85.兴趣", prefix: "/xingqu/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "90.关于", prefix: "/about/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "100.Teek", prefix: "/teek/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  // { folderName: "40.专题/10.博客搭建/45.静态站点构建器", prefix: "/zhuanti/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  // { folderName: "40.专题/10.博客搭建/45.静态站点构建器", prefix: "/zhuanti", clear: true }, // 清空前缀并且添加前缀使用随机数
               ];
               // 应用规则转换
               return useTransformByRules(frontMatter, fileInfo, rules);

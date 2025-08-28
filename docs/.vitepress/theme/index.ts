@@ -19,7 +19,7 @@ import "vitepress-theme-teek/theme-chalk/tk-table.css"; // 表格样式
 import "vitepress-theme-teek/theme-chalk/tk-mark.css"; // 文章 mark 标签样式
 import "vitepress-theme-teek/theme-chalk/tk-blockquote.css"; //引用样式
 import "vitepress-theme-teek/theme-chalk/tk-index-rainbow.css"; // Vitepress 首页彩虹渐变样式
-import "vitepress-theme-teek/theme-chalk/tk-doc-fade-in.css"; // 文档淡入效果样式
+// import "vitepress-theme-teek/theme-chalk/tk-doc-fade-in.css"; // 文档淡入效果样式
 import "vitepress-theme-teek/theme-chalk/tk-banner-desc-gradient.css"; // Banner 描述渐变样式
 
 // 主题增强样式
@@ -39,6 +39,8 @@ import "vitepress-markdown-timeline/dist/theme/index.css"; // 引入时间线样
 //切换进度条
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
 import "nprogress-v2/dist/index.css"; // 进度条样式
+
+import "vitepress-theme-teek/tk-plus/fade-up-animation.scss";// 首次加载的动画效果
 
 
 export default {

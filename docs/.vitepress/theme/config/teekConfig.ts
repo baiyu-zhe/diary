@@ -64,13 +64,13 @@ const teekBlogCommonConfig: TeekConfig = {
     typesShuffle: false, // 描述信息是否随机打字，为 false 时按顺序打字，descStyle 为 types 时生效
   },  
 
-  // 首页顶部按 F11 开启壁纸模式
-  wallpaper: {
-    enabled: true, // 是否启用壁纸模式
-    hideBanner: true, // 开启壁纸模式后，全屏是否显示打字机文案，
-    hideMask: true, // 开启壁纸模式后，是否隐藏 Banner 或 bodyBgImage 的遮罩层，则确保 banner.mask 和 bodyBgImage.mask 为 true 才生效
-    // hideWaves: true, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
-  },
+  // // 首页顶部按 F11 开启壁纸模式
+  // wallpaper: {
+  //   enabled: true, // 是否启用壁纸模式
+  //   hideBanner: true, // 开启壁纸模式后，全屏是否显示打字机文案，
+  //   hideMask: true, // 开启壁纸模式后，是否隐藏 Banner 或 bodyBgImage 的遮罩层，则确保 banner.mask 和 bodyBgImage.mask 为 true 才生效
+  //   // hideWaves: true, // 开启壁纸模式后，是否隐藏 Banner 波浪组件，仅 banner.bgStyle = 'fullImg' 生效
+  // },
   // footerInfo: {
   //   customHtml: `<span id="runtime"></span>`, // 需要搭配 .vitepress/theme/helper/useRuntime.ts 使用
   // },
