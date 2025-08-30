@@ -42,6 +42,7 @@ import "nprogress-v2/dist/index.css"; // 进度条样式
 
 import "vitepress-theme-teek/tk-plus/fade-up-animation.scss";// 首次加载的动画效果
 
+// import "./style/sidebar-icon.scss";
 
 export default {
   extends: Teek,

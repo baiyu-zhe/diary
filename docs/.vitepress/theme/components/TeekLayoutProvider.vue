@@ -17,6 +17,8 @@ import NoticeContent from "./NoticeContent.vue"; //导入公告组件
 import TitleChange from "./TitleChange.vue" //导入网页标题变化
 import ScrollProgressBar from "./ScrollProgressBar.vue" //导入顶部滚动条组件
 
+import DocFooterCopyright from "./DocFooterCopyright.vue"; //导入文档页脚版权组件
+
 
 import BackTop from "./BackTop.vue"; //导入回到顶部组件
 import Clock from "./Clock.vue"; // 时钟组件
@@ -127,12 +129,20 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
     <!-- 回到顶部组件 -->
     <template #teek-home-bottom-after>
       <BackTop />
+      <DocFooterCopyright />
     </template>
 
     <!-- 右上角时钟组件 -->
     <template #nav-bar-content-after>
       <Clock/>
     </template>
+
+ <!-- 返回顶部按钮 -->
+    <template #doc-footer-before>
+      <DocFooterCopyright />
+    </template>
+
+
         
   </Teek.Layout>
 </template>
@@ -143,6 +153,11 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
 
   .tk-my__avatar.circle-rotate {
     margin-top: 90px;
+
+
+    .tk-avatar:not(.avatar-sticker) {
+      border: 5px solid var(--vp-c-bg-elv);
+    }    
   }
 }
 </style>

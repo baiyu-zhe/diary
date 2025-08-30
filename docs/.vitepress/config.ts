@@ -70,6 +70,13 @@ const teekConfig = defineTeekConfig({
     circleBgImg: "https://img.onedayxyy.cn/images/TeekBg/14.webp", // 侧边栏个人头像圆形背景图
     circleBgMask: false, // 头像圆形背景图是否显示遮罩层
     color: "#fff",
+
+    // 状态，仅当 shape 为 circle 相关值时有效
+    status: {
+      icon: "😪", // 状态图标
+      size: 24, // 图标大小
+      title: "困", // 鼠标悬停图标的提示语
+    },    
   },
 
 
@@ -150,16 +157,16 @@ const teekConfig = defineTeekConfig({
 
 
 
-  articleBottomTip: () => {
-    return {
-      type: "tip",
-      title: "声明",
-      text: `<p>作者：<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One</a></p>
-             <p style="margin-bottom: 0">链接：可点击右上角分享此页面复制文章链接😜</p>
-             <p>版权：本博客所有文章除特别声明外，均采用<a href="http://www.suncai.net/PubLicense/CCBY40.html" target="_blank" rel="noopener noreferrer">CCBY-NC-SA4.O</a>许可协议。转载请注明来自<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One Blog</a></p>
-            `,
-    };
-  },
+  // articleBottomTip: () => {
+  //   return {
+  //     type: "tip",
+  //     title: "声明",
+  //     text: `<p>作者：<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One</a></p>
+  //            <p style="margin-bottom: 0">链接：可点击右上角分享此页面复制文章链接😜</p>
+  //            <p>版权：本博客所有文章除特别声明外，均采用<a href="http://www.suncai.net/PubLicense/CCBY40.html" target="_blank" rel="noopener noreferrer">CCBY-NC-SA4.O</a>许可协议。转载请注明来自<a href="https://onedayxyy.cn/" target="_blank" rel="noopener noreferrer">One Blog</a></p>
+  //           `,
+  //   };
+  // },
 
   // backTopDone: TkMessage => TkMessage.success("返回顶部"),
   
@@ -178,7 +185,7 @@ const teekConfig = defineTeekConfig({
 
   // 新版代码块配置
   codeBlock: {
-    disabled: false, // 是否禁用新版代码块
+    // disabled: false, // 是否禁用新版代码块
     collapseHeight: 700, // 超出高度后自动折叠，设置 true 则默认折叠，false 则默认不折叠
     overlay: true, // 代码块底部是否显示展开/折叠遮罩层
     overlayHeight: 400, // 当出现遮罩层时，指定代码块显示高度，当 overlay 为 true 时生效
@@ -262,6 +269,7 @@ const teekConfig = defineTeekConfig({
       ignoreList: [/^_.*$/],
       resolveRule: "rewrites",
       checkRewritesPrefix: true,    
+      ignoreIndexMd: true,
     },
 
     autoFrontmatter: true, // 自动生成 frontmatter
