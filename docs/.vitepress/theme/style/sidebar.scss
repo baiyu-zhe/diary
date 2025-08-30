@@ -1,11 +1,6 @@
 // 导入包含混合器定义的文件
 @use "./var";
 
-/* 侧边栏整体样式 */
-#VPSidebarNav {
-    transition: all 0.3s ease;
-}
-
 /* 侧边栏缩放效果 */
 .group:has([role="button"]) .VPSidebarItem.level-0 .items {
     padding-left: 15px !important;
@@ -16,7 +11,6 @@
 
 /* 侧边栏项基本样式 */
 #VPSidebarNav .VPSidebarItem > .item {
-    display: inline-flex;
     align-items: center;
     border-radius: 4px;
     transition: all 0.2s ease;
@@ -28,10 +22,7 @@
 
 /* 侧边栏项激活状态 */
 #VPSidebarNav .VPSidebarItem.is-active > .item {
-    // color: var(--vp-c-brand);
-    color: #ff7676;
-
-    font-weight: 500;
+    color: var(--vp-c-brand);
 }
 
 /* 侧边栏项图标基本样式 */
@@ -75,29 +66,18 @@
     filter: brightness(1) hue-rotate(180deg);
 }
 
-/* 侧边栏展开/折叠动画 */
-#VPSidebarNav .VPSidebarItem .items {
-    transition:
-        max-height 0.3s ease-out,
-        opacity 0.2s ease-out;
-    overflow: hidden;
-}
-
-#VPSidebarNav .VPSidebarItem.is-active .items,
-#VPSidebarNav .VPSidebarItem:hover .items {
-    opacity: 1;
-    transition:
-        max-height 0.5s ease-in,
-        opacity 0.3s ease-in;
-}
+// 侧边栏二级菜单激活左侧|激活样式
+// #VPSidebarNav .VPSidebarItem .items {
+//     overflow: hidden;
+// }
 
 //使用混合器为侧边栏一级标题应用渐变文本
-.VPSidebarItem.level-0 .text {
-    // @include var.text-gradient;
-    color: var(--vp-c-brand-1) !important;
-}
+// .VPSidebarItem.level-0 .text {
+//     // @include var.text-gradient;
+//     color: var(--vp-c-brand-1) !important;
+// }
 
-// 您可能还想为其他元素应用相同的渐变效果
+// 一级文件夹hover渐变效果
 .VPSidebarItem.level-0 .item:hover .text {
     @include var.text-gradient;
     opacity: 0.9;
@@ -106,12 +86,4 @@
 // 或者为激活状态的侧边栏项应用渐变
 .VPSidebarItem.level-0.is-active .text {
     @include var.text-gradient;
-    font-weight: 600;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .group:has([role="button"]) .VPSidebarItem.level-0 .items {
-        padding-left: 10px !important;
-    }
 }

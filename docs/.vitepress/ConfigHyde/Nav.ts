@@ -9,7 +9,7 @@ export const Nav = [
           <span>Teek</span>
         </div>
         `,
-      link: '/teek/teek',
+      link: '/teek/teek-one',
     },
 
 
@@ -26,7 +26,7 @@ export const Nav = [
               <span>运维</span>
             </div>
             `,
-          link: '/linux/linux',
+          link: '/linux/linux-index',
         },
         {
           text: `
@@ -35,7 +35,7 @@ export const Nav = [
               <span>前端</span>
             </div>
             `,
-          link: '/qianduan/qianduan',
+          link: '/qianduan/qianduan-index',
         },
                 {
           text: `
@@ -44,7 +44,7 @@ export const Nav = [
               <span>编程</span>
             </div>
             `,
-          link: '/code/code',
+          link: '/code/code-index',
         },
         {
           text: `
@@ -53,7 +53,7 @@ export const Nav = [
               <span>黑客</span>
             </div>
             `,
-          link: '/hacker/hacker',
+          link: '/hacker/hacker-index',
         },
       ],
     },  
@@ -191,7 +191,7 @@ export const Nav = [
                   <span>精神小屋</span>
                 </div>
                 `,
-              link: '/love/love',
+              link: '/love/inner',
             },
             {
               text: `

@@ -63,11 +63,11 @@ const teekConfig = defineTeekConfig({
   // author: { name: "Teeker", link: "https://github.com/Kele-Bingtang" },
   blogger: {
     // 博主信息，显示在首页侧边栏
-    avatar: "/img/xyy.webp",
+    avatar: "/img/xyy.webp",  //侧边栏个人头像
     shape: "circle-rotate", // 头像风格：square 为方形头像，circle 为圆形头像，circle-rotate 可支持鼠标悬停旋转
-    name: "One",
-    slogan: "明心静性，爱自己",
-    circleBgImg: "https://img.onedayxyy.cn/images/TeekBg/14.webp", // 头像圆形背景图
+    name: "One", // 侧边栏个人昵称
+    slogan: "明心静性，爱自己", // 侧边栏个人座右铭
+    circleBgImg: "https://img.onedayxyy.cn/images/TeekBg/14.webp", // 侧边栏个人头像圆形背景图
     circleBgMask: false, // 头像圆形背景图是否显示遮罩层
     color: "#fff",
   },
@@ -333,7 +333,7 @@ export default defineConfig({
   }),
 
   extends: teekConfig,
-  title: "One",
+  title: "One", //左上角网站名称
   description: description,
   cleanUrls: true,  //设置为true就是让链接后不默认添加.html
   lastUpdated: true,
@@ -371,11 +371,18 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // logo: "/teek-logo-mini.svg",
-    logo: "/favicon.ico",
+    logo: "/favicon.ico",   //网站logo
     darkModeSwitchLabel: "主题",
     sidebarMenuLabel: "菜单",
     returnToTopLabel: "返回顶部",
-    lastUpdatedText: "上次更新时间",
+    // lastUpdatedText: "上次更新时间",
+    lastUpdated: {
+      text: '最后更新于',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
+    },    
     outline: {
       level: [2, 4],
       label: "本页导航",
