@@ -36,6 +36,9 @@ export const HeadData = [
   ],
   ["meta", { name: "referrer", content: "no-referrer-when-downgrade" }], //不蒜子统计
   ["meta", { name: "author", content: "Tianke" }],
+  ['meta', { property: 'og:description', content: '明心静性，爱自己' }],
+  ['meta', { property: 'og:image', content: 'https://onedayxyy.cn/img/xyy.webp' }],
+
   [
     "meta",
     {

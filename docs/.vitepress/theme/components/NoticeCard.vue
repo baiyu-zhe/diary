@@ -13,10 +13,11 @@
 
         <!-- 底部操作区 -->
         <div class="announcement-footer">
-          <a class="announcement-button" :href="noticeContent.operationButtonPath" :target="getTargetValue()">
+          <a class="announcement-link" :href="noticeContent.operationButtonPath" :target="getTargetValue()">
             <span>{{ noticeContent.operationButtonName }}</span>
-            <svg class="button-icon" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
             </svg>
           </a>
         </div>
@@ -60,13 +61,13 @@ const getTargetValue = (): string => {
 
 <style scoped>
 .announcement-card {
-  --primary-color: #6366f1;
-  --primary-hover: #4f46e5;
+  --link-color: #888;
+  --link-hover: #6366f1;
 }
 
 html.dark .announcement-card {
-  --primary-color: #818cf8;
-  --primary-hover: #6366f1;
+  --link-color: #aaa;
+  --link-hover: #818cf8;
 }
 
 .announcement-content {
@@ -99,27 +100,31 @@ html.dark .announcement-card {
   justify-content: flex-end;
 }
 
-.announcement-button {
+.announcement-link {
   display: inline-flex;
   align-items: center;
-  padding: 8px 16px;
-  background-color: var(--primary-color);
-  color: white;
+  padding: 4px 8px;
+  color: var(--link-color);
   font-size: 14px;
   font-weight: 500;
-  border-radius: 6px;
   text-decoration: none;
   transition: all 0.2s ease;
   gap: 6px;
+  border-radius: 4px;
 }
 
-.announcement-button:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
+.announcement-link:hover {
+  color: var(--link-hover);
+  background-color: rgba(99, 102, 241, 0.1);
 }
 
-.button-icon {
+.link-icon {
   width: 16px;
   height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.announcement-link:hover .link-icon {
+  transform: translateX(3px);
 }
 </style>

@@ -295,6 +295,7 @@ export const Nav = [
       items: [
         { text: '👋关于我', link: '/about/me' },
         { text: '🎉关于本站', link: '/about/website' },
+        { text: '💖友链', link: '/about/friend-links' },
         { text: '🌐网站导航', link: '/about/websites' },          
         { text: "👂留言区", link: "/about/liuyanqu" },
         { text: "💡思考", link: "/about/thinking" },

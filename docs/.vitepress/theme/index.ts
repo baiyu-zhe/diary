@@ -42,6 +42,9 @@ import "nprogress-v2/dist/index.css"; // 进度条样式
 
 import "vitepress-theme-teek/tk-plus/fade-up-animation.scss";// 首次加载的动画效果
 
+
+import SLink from "./components/SLink/index.vue"; //友链
+
 // import "./style/sidebar-icon.scss";
 
 export default {
@@ -51,6 +54,9 @@ export default {
     // app.component("MNavLinks", MNavLinks); // 注册导航组件
     app.component("confetti", confetti); // 注册五彩纸屑组件
     // app.component("NavIcon", NavIcon); //导航栏图标
+
+    // 注册全局组件
+    app.component("friend-link", SLink);
 
     // 非SSR环境下配置路由进度条
     // @ts-expect-error
