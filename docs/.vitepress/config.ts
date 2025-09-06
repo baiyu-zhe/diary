@@ -73,9 +73,9 @@ const teekConfig = defineTeekConfig({
 
     // 状态，仅当 shape 为 circle 相关值时有效
     status: {
-      icon: "😪", // 状态图标
+      icon: "😜", // 状态图标
       size: 24, // 图标大小
-      title: "困", // 鼠标悬停图标的提示语
+      title: "有趣", // 鼠标悬停图标的提示语
     },    
   },
 
@@ -150,7 +150,7 @@ const teekConfig = defineTeekConfig({
   // 风险链接提示页
   riskLink: {
     enabled: true, //是否启用风险链接提示功能
-    whitelist: ["https://onedayxyy.cn/", "https://img.onedayxyy.cn/", "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
+    whitelist: ["https://onedayxyy.cn/", "https://zola.onedayxyy.cn/", "https://img.onedayxyy.cn/", "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public", "https://one.onedayxyy.cn/", "https://vp.teek.top/", "https://teek.seasir.top/", /https:\/\/github.com/, /https:\/\/giee.com/], // 白名单，匹配到的链接不提示风险
     blacklist: [], // 黑名单，匹配到的链接提示风险
   },
 
@@ -465,10 +465,11 @@ export default defineConfig({
     },
 
     
-    // editLink: {
-    //   text: "在 GitHub 上编辑此页",
-    //   pattern: "https://github.com/Kele-Bingtang/vitepress-theme-teek/edit/master/docs/:path",
-    // },
+    editLink: {
+      text: "在 GitHub 上编辑此页",
+      // pattern: "https://github.com/Kele-Bingtang/vitepress-theme-teek/edit/master/docs/:path",
+      pattern: "https://onedayxyy.cn/teek/teek-one",
+    },
   },
 
   vite: {

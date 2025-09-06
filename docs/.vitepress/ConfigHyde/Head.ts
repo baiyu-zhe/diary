@@ -116,4 +116,7 @@ export const HeadData = [
   //     defer: "defer",  // 添加defer属性，确保脚本在DOM加载完成后执行
   //   },
   // ],
+
+  // 阿里图标库symbol 引用
+  ["script",{src: "https://at.alicdn.com/t/c/font_4686603_33kna2v5qcm.js",defer: "defer",},],  
 ];
