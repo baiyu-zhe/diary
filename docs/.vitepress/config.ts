@@ -365,16 +365,16 @@ export default defineConfig({
   },
   sitemap: {
     hostname: "https://onedayxyy.cn",
-    transformItems: items => {
-      const permalinkItemBak: typeof items = [];
-      // 使用永久链接生成 sitemap
-      const permalinks = (globalThis as any).VITEPRESS_CONFIG.site.themeConfig.permalinks;
-      items.forEach(item => {
-        const permalink = permalinks?.map[item.url];
-        if (permalink) permalinkItemBak.push({ url: permalink, lastmod: item.lastmod });
-      });
-      return [...items, ...permalinkItemBak];
-    },
+    // transformItems: items => {
+    //   const permalinkItemBak: typeof items = [];
+    //   // 使用永久链接生成 sitemap
+    //   const permalinks = (globalThis as any).VITEPRESS_CONFIG.site.themeConfig.permalinks;
+    //   items.forEach(item => {
+    //     const permalink = permalinks?.map[item.url];
+    //     if (permalink) permalinkItemBak.push({ url: permalink, lastmod: item.lastmod });
+    //   });
+    //   return [...items, ...permalinkItemBak];
+    // },
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -477,7 +477,7 @@ export default defineConfig({
       // host: "127.0.0.1", // 指定服务器应该监听哪个 IP 地址
       // port: 5173, // 指定开发服务器端口
       // strictPort: true, // 若端口已被占用则会直接退出
-      open: true, // 运行后自动打开网页
+      // open: true, // 运行后自动打开网页
     },
     
     // 构建

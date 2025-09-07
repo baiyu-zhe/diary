@@ -2,22 +2,14 @@
 import { TeekIcon, VdoingIcon, SSLIcon, BlogIcon } from "./icon/NavIcon";
 export const Nav = [
     { text: "🏡首页", link: "/" },
-    {
-      text: `
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <img src="/img/nav/teek.svg" alt="" style="width: 16px; height: 16px;">
-          <span>Teek</span>
-        </div>
-        `,
-      link: '/teek/teek-one',
-    },
+
 
 
 
 
     // 笔记
     {
-      text: '📚知识库',
+      text: '📚文档',
       items: [
         {
           text: `
@@ -62,6 +54,15 @@ export const Nav = [
     {
       text: '🛠️专题',
       items: [
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/teek.svg" alt="" style="width: 16px; height: 16px;">
+              <span>Teek</span>
+            </div>
+            `,
+          link: '/teek/vitepress-theme-teek',
+        },        
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -214,34 +215,59 @@ export const Nav = [
             // { text: "💖情侣空间", link: "https://fxj.onedayxyy.cn/" },
           ],
         },
+        // 兴趣
+        {
+          text: '兴趣',
+          items: [
+            {
+              text: `
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <img src="/img/nav/旅行.svg" alt="" style="width: 16px; height: 16px;">
+                  <span>旅行</span>
+                </div>
+                `,
+              link: '/xingqu/travel',
+            },
+            {
+              text: `
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <img src="/img/nav/读书.svg" alt="" style="width: 16px; height: 16px;">
+                  <span>读书</span>
+                </div>
+                `,
+              link: '/xingqu/reading',
+            },
+          ],
+        },  
+
       ],
     },  
 
 
-    // 兴趣
-    {
-      text: '🎨兴趣',
-      items: [
-        {
-          text: `
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <img src="/img/nav/旅行.svg" alt="" style="width: 16px; height: 16px;">
-              <span>旅行</span>
-            </div>
-            `,
-          link: '/xingqu/travel',
-        },
-        {
-          text: `
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <img src="/img/nav/读书.svg" alt="" style="width: 16px; height: 16px;">
-              <span>读书</span>
-            </div>
-            `,
-          link: '/xingqu/reading',
-        },
-      ],
-    },  
+    // // 兴趣
+    // {
+    //   text: '🎨兴趣',
+    //   items: [
+    //     {
+    //       text: `
+    //         <div style="display: flex; align-items: center; gap: 4px;">
+    //           <img src="/img/nav/旅行.svg" alt="" style="width: 16px; height: 16px;">
+    //           <span>旅行</span>
+    //         </div>
+    //         `,
+    //       link: '/xingqu/travel',
+    //     },
+    //     {
+    //       text: `
+    //         <div style="display: flex; align-items: center; gap: 4px;">
+    //           <img src="/img/nav/读书.svg" alt="" style="width: 16px; height: 16px;">
+    //           <span>读书</span>
+    //         </div>
+    //         `,
+    //       link: '/xingqu/reading',
+    //     },
+    //   ],
+    // },  
     
     
     // 索引
