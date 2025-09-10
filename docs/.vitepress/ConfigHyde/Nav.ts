@@ -61,7 +61,7 @@ export const Nav = [
               <span>Teek</span>
             </div>
             `,
-          link: '/teek/vitepress-theme-teek',
+          link: '/teek/teek-blog',
         },        
         {
           text: `
@@ -70,7 +70,7 @@ export const Nav = [
               <span>博客搭建</span>
             </div>
             `,
-          link: '/zhuanti/blog',
+          link: '/blog/blog-index',
         },
         {
           text: `
