@@ -11,7 +11,7 @@
           :class="{ irregular: data.irregular }"
         />
         <span v-else class="avatar-placeholder">
-          {{ data.name ? data.name.charAt(0).toUpperCase() : "?" }}
+          {{ data.name ? data.name.charAt(0).toUpperCase() : '?' }}
         </span>
       </div>
 
@@ -30,16 +30,16 @@
 defineProps({
   data: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-import { ref } from "vue";
-const imageFailed = ref(false);
+import { ref } from 'vue'
+const imageFailed = ref(false)
 
 const handleImageError = () => {
-  imageFailed.value = true;
-};
+  imageFailed.value = true
+}
 </script>
 
 <style scoped>
@@ -108,7 +108,7 @@ const handleImageError = () => {
 
 .link-content {
   flex: 1;
-  padding: 0 16px;
+  padding: 0 16px 0 0px;
 }
 
 .link-name {
@@ -116,20 +116,25 @@ const handleImageError = () => {
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin-bottom: 6px;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .link-desc {
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
-  display: -webkit-box;
+  display: -webkit-box; /* 兼容 WebKit 旧版本 */
   display: box;
   -webkit-box-orient: vertical;
   box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 2; /* 兼容旧版 */
+  line-clamp: 2; /* 标准属性（核心） */
   overflow: hidden;
   line-height: 1.4;
 }

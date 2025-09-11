@@ -25,7 +25,6 @@
     </div>
 
     <!-- 留言/评论区域，默认显示，可通过frontmatter隐藏 -->
-
     <div v-if="shouldShow" class="my-message-section">
       <div class="title-wrapper">
         <h3>留链吗</h3>
@@ -53,11 +52,10 @@
 </template>
 
 <script setup>
-
 import { useData } from "vitepress";
 import LinkItem from "./LinkItem.vue";
 // 导入Twikoo评论组件
-// import Twikoo from "../Twikoo.vue";
+//import Twikoo from "../Twikoo.vue";
 import { computed } from 'vue'
 
 /**
@@ -93,11 +91,10 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
 
 <style scoped>
 /* 主容器样式 */
-/* 限制最大宽度并居中显示，添加内边距和字体设置 */
 .my-links-container {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 10px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -105,6 +102,7 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
 /* 标题区域样式 */
 .my-links-title {
   margin-bottom: 50px;
+  padding: 0 10px;
 }
 
 /* 主标题样式 */
@@ -121,7 +119,7 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
   display: inline-block;
 }
 
-/* 分组标题装饰线样式，实现带中线的标题效果，标题文字悬浮在中线上 */
+/* 分组标题装饰线样式 */
 .title-wrapper {
   position: relative;
   margin: 40px 0;
@@ -130,7 +128,7 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
   transition: 0.3s;
 }
 
-/* 分组标题文字样式，绝对定位使标题居中显示在装饰线上方，添加背景色覆盖装饰线 */
+/* 分组标题文字样式 */
 .title-wrapper h3 {
   position: absolute;
   left: 50%;
@@ -144,48 +142,42 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
   z-index: 1;
 }
 
-/* 分组描述文字样式，居中显示，使用次要文本色，调整间距 */
+/* 分组描述文字样式 */
 .group-desc {
   text-align: center;
   color: var(--vp-c-text-2);
   font-size: 0.95rem;
   margin-bottom: 30px;
+  padding: 0 10px;
 }
 
-/* 友链网格布局核心样式，采用flex布局实现响应式网格，支持自动换行和居中对齐 */
+/* 友链网格布局 - 核心响应式实现 */
 .links-grid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* 让所有行的内容居中对齐 */
   gap: 24px;
-  justify-content: center;
   margin-bottom: 60px;
   padding: 0 8px;
 }
 
-/* 友链项容器样式，控制每个友链卡片的宽度，实现响应式布局 */
+/* 每个友链项的样式，设置基础宽度 */
 .links-grid__item {
-  flex: 1;
-  min-width: 200px;
-  /* 电脑端最大4列：25%宽度减去均分的gap间距 */
-  max-width: calc(25% - 18px);
+  flex: 0 0 calc(100% - 24px); /* 移动设备：每行1个 */
   break-inside: avoid;
 }
 
-/* 响应式布局调整，根据屏幕宽度动态调整每行显示的友链数量 */
-@media (max-width: 991px) {
-
-  /* 平板端（768-991px）：最大2列布局 */
+/* 平板设备：每行2个 */
+@media (min-width: 768px) {
   .links-grid__item {
-    max-width: calc(50% - 12px);
+    flex: 0 0 calc(50% - 24px);
   }
 }
 
-@media (max-width: 767px) {
-
-  /* 手机端（≤767px）：单列布局，卡片占满宽度 */
+/* 桌面设备：每行最多4个 */
+@media (min-width: 1024px) {
   .links-grid__item {
-    max-width: 100%;
-    min-width: 100%;
+    flex: 0 0 calc(25% - 24px);
   }
 }
 
@@ -195,7 +187,7 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
   margin-top: 20px;
 }
 
-/* 留言卡片样式，带阴影的卡片设计，使用主题色变量保持风格统一 */
+/* 留言卡片样式 */
 .message-card {
   width: 100%;
   max-width: 1500px;
@@ -204,7 +196,6 @@ const shouldShow = computed(() => frontmatter.value.comments !== false);
   border-radius: 12px;
   background: var(--vp-c-bg);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  /* 轻微阴影效果 */
   border: 1px solid var(--vp-c-divider);
   text-align: left;
   transition: all 0.2s ease;
