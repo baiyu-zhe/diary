@@ -233,11 +233,11 @@ async function displayRandomImage() {
 }
 
 
-// 检测图集服务是否可用
+// 检测图集服务是否可用（快速检测，用于初始加载）
 async function checkServiceAvailability(): Promise<boolean> {
   try {
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 3000) // 3秒超时
+    const timeoutId = setTimeout(() => controller.abort(), 2000) // 2秒快速超时，避免影响页面加载
     
     const response = await fetch(WALLPAPER_SERVICE_CONFIG.fullUrl, {
       method: 'GET',
@@ -383,18 +383,47 @@ async function fetchImageLibrary() {
 onMounted(async () => {
   console.log('🖼️ 动态壁纸管理器启动')
   
-  // 首次加载图库
-  await fetchImageLibrary()
+  // 快速检测服务状态（1秒超时，避免页面等待太久）
+  console.log('🔍 快速检测图集服务状态...')
   
-  // 首次展示图片
-  if (currentImages.length > 0) {
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 1000) // 1秒快速检测
+    
+    const response = await fetch(WALLPAPER_SERVICE_CONFIG.fullUrl, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      signal: controller.signal
+    })
+    
+    clearTimeout(timeoutId)
+    
+    if (response.ok) {
+      // 服务可用：直接获取并显示动态图片
+      console.log('✅ 图集服务可用，使用动态壁纸')
+      await fetchImageLibrary()
+      
+      if (!isUsingFallback && currentImages.length > 0) {
+        await displayRandomImage()
+      }
+      
+      // 设置定时器：每60秒更新图库
+      fetchLibraryIntervalId = window.setInterval(fetchImageLibrary, FETCH_LIBRARY_INTERVAL)
+    } else {
+      throw new Error('服务响应异常')
+    }
+  } catch (error) {
+    // 服务不可用：使用备用图片
+    console.log('❌ 图集服务不可用，使用备用壁纸')
+    currentImages = getFallbackImages()
+    isUsingFallback = true
     await displayRandomImage()
+    
+    // 启动服务监控，等待服务恢复
+    startServiceMonitoring()
   }
   
-  // 设置定时器1：每60秒从服务器获取图库
-  fetchLibraryIntervalId = window.setInterval(fetchImageLibrary, FETCH_LIBRARY_INTERVAL)
-  
-  // 设置定时器2：每10秒从图库中随机选择一张图片展示
+  // 设置定时器：每10秒切换图片
   switchImageIntervalId = window.setInterval(displayRandomImage, SWITCH_IMAGE_INTERVAL)
 })
 

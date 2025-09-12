@@ -12,24 +12,24 @@ export const WALLPAPER_SERVICE_CONFIG = {
 // 备用图片列表（当本地服务不可用时使用）
 const fallbackImages = [
   "https://img.onedayxyy.cn/images/Teek/TeekBg/1.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/2.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/3.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/4.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/5.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/6.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/7.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/8.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/9.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/10.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/11.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/12.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/13.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/14.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/15.webp", 
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/16.webp",
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/17.webp",
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/18.webp",
-  "https://img.onedayxyy.cn/images/Teek/TeekBg/19.webp",
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/2.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/3.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/4.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/5.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/6.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/7.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/8.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/9.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/10.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/11.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/12.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/13.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/14.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/15.webp", 
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/16.webp",
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/17.webp",
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/18.webp",
+  // "https://img.onedayxyy.cn/images/Teek/TeekBg/19.webp",
 ];
 // 动态获取图片列表的函数
 async function fetchDynamicWallpapers(): Promise<string[]> {
@@ -73,7 +73,7 @@ function getWallpapers(): Promise<string[]> {
 }
 
 // 导出的Wallpaper数组 - 在服务端渲染时使用备用图片，客户端动态加载
-export const Wallpaper = fallbackImages;
+export const Wallpaper: string[] = [];
 
 // 导出动态获取函数供主题使用
 export { getWallpapers, fetchDynamicWallpapers };
