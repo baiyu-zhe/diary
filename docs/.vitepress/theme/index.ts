@@ -31,7 +31,7 @@ import "vitepress-theme-teek/tk-plus/banner-full-img-scale.scss"; // Banner 全�
 
 import "./styles/code-bg.scss";
 import "./styles/iframe.scss";
-import "./style/index.scss"; // 引入全局样式
+import "./style/index.scss"; // 引入One全局样式
 
 // import "virtual:group-icons.css"; //代码组图标样式
 import "vitepress-markdown-timeline/dist/theme/index.css"; // 引入时间线样式
@@ -44,7 +44,12 @@ import "vitepress-theme-teek/tk-plus/fade-up-animation.scss";// 首次加载的�
 
 
 import SLink from "./components/SLink/index.vue"; //友链
-import DynamicWallpaperManager from "./components/DynamicWallpaperManager.vue"; //动态壁纸管理器
+
+// 导入情侣相册组件
+import CoupleAlbum from './components/CoupleAlbum/CoupleAlbum.vue'
+import PhotoCard from './components/CoupleAlbum/PhotoCard.vue'
+
+
 
 // import "./style/sidebar-icon.scss";
 
@@ -54,11 +59,14 @@ export default {
     // 注册组件
     // app.component("MNavLinks", MNavLinks); // 注册导航组件
     app.component("confetti", confetti); // 注册五彩纸屑组件
+
+    app.component('CoupleAlbum', CoupleAlbum) // 注册情侣相册组件
+    app.component('PhotoCard', PhotoCard)
+    
     // app.component("NavIcon", NavIcon); //导航栏图标
 
     // 注册全局组件
     app.component("friend-link", SLink);
-    app.component("DynamicWallpaperManager", DynamicWallpaperManager);
 
     // 非SSR环境下配置路由进度条
     // @ts-expect-error

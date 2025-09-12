@@ -324,7 +324,8 @@ export const Nav = [
         { text: '💖友链', link: '/about/friend-links' },
         { text: '🌐网站导航', link: '/about/websites' },          
         { text: "👂留言区", link: "/about/liuyanqu" },
-        { text: "💡思考", link: "/about/thinking" },
+        { text: "💡思考", link: "/about/thouht" },
+        { text: "💡情侣相册", link: "/about/love" },
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -332,7 +333,7 @@ export const Nav = [
               <span>时间轴</span>
             </div>
             `,
-          link: 'https://one.onedayxyy.cn/',
+          link: '/about/time-line',
         },
         {
           text: `
