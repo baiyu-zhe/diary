@@ -22,7 +22,6 @@ import DocFooterCopyright from "./DocFooterCopyright.vue"; //导入文档页脚�
 
 import BackTop from "./BackTop.vue"; //导入回到顶部组件
 import Clock from "./Clock.vue"; // 时钟组件
-// import OhMyLive2D from "./OhMyLive2D.vue"; //导入看板娘组件
 
 
 // @ts-ignore
@@ -30,7 +29,7 @@ import Clock from "./Clock.vue"; // 时钟组件
 
 import NoticeCard from "./NoticeCard.vue";
 import WechatAccountCard from "./WechatAccountCard.vue";
-import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
+// import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
 
 
 
@@ -89,7 +88,7 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <!-- 全局问候组件 -->
       <!-- <GlobalGreet /> -->
       <!-- 看板娘组件 -->
-      <!-- <OhMyLive2D /> -->
+      <!--<OhMyLive2D />-->
       <!-- 顶部滚动条组件 -->
       <ScrollProgressBar />
       <!--网页标题切换组件  -->
@@ -99,6 +98,8 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       
       <!-- 路由切换遮罩动画组件 -->
       <RouteSwitchingLoading />
+      <!-- 动态壁纸管理器 -->
+      <DynamicWallpaperManager />
     </template>
 
     <template #teek-theme-enhance-bottom>
@@ -136,7 +137,7 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
 
     <!-- 自定义公告卡片 -->
     <template #teek-home-card-doc-analysis-after>
-      <WechatAccountCard />
+      <!-- <WechatAccountCard /> -->
     </template>
 
     <!-- 回到顶部组件 -->
