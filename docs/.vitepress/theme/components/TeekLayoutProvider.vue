@@ -30,7 +30,7 @@ import Clock from "./Clock.vue"; // 时钟组件
 
 import NoticeCard from "./NoticeCard.vue";
 import WechatAccountCard from "./WechatAccountCard.vue";
-import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
+// import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
 
 
 
@@ -96,6 +96,8 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <TitleChange />
       <!-- 返回顶部组件 -->
       <!--<BackToTop /> -->
+      <!-- 动态壁纸管理器 -->
+      <DynamicWallpaperManager />
       
       <!-- 路由切换遮罩动画组件 -->
       <RouteSwitchingLoading />

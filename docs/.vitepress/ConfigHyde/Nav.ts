@@ -335,6 +335,7 @@ export const Nav = [
             `,
           link: '/about/time-line',
         },
+        { text: "💡朋友圈", link: "/about/pyq" },
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">

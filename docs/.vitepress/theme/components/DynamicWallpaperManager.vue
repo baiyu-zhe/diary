@@ -1,0 +1,473 @@
+<template>
+  <!-- 这是一个无渲染组件，仅用于管理动态壁纸 -->
+</template>
+
+<script setup lang="ts">
+import { onMounted, onUnmounted, nextTick } from 'vue'
+import { fetchDynamicWallpapers, WALLPAPER_SERVICE_CONFIG } from '../../ConfigHyde/Wallaper'
+
+// 定义时间间隔配置
+const FETCH_LIBRARY_INTERVAL = 60 * 1000 // 60秒请求一次图集服务器获取图库
+const SWITCH_IMAGE_INTERVAL = 10 * 1000 // 10秒从图库中随机选择一张图片展示
+const SERVICE_CHECK_INTERVAL = 15 * 1000 // 15秒检测一次服务状态（当使用备用图片时）
+
+let fetchLibraryIntervalId: number | null = null // 图库请求定时器
+let switchImageIntervalId: number | null = null // 图片切换定时器
+let serviceCheckIntervalId: number | null = null // 服务检测定时器
+let currentImages: string[] = [] // 当前图库
+let currentDisplayImage: string = '' // 当前展示的图片
+let isUsingFallback: boolean = false // 是否正在使用备用图片
+let lastSuccessfulFetch: number = 0 // 上次成功获取图库的时间
+
+// 预加载图片以避免加载闪烁，检测图片是否可用
+function preloadImage(src: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve(true) // 加载成功
+    img.onerror = () => resolve(false) // 加载失败
+    img.src = src
+  })
+}
+
+// 添加过渡动画样式
+function addTransitionStyles(element: HTMLElement) {
+  if (!element.style.transition || !element.style.transition.includes('opacity')) {
+    element.style.transition = element.style.transition 
+      ? `${element.style.transition}, opacity 0.3s ease-in-out`
+      : 'opacity 0.3s ease-in-out'
+  }
+}
+
+// 更新Banner背景图片（使用滑动过渡，避免白闪）
+function updateBannerBackground(imageSrc: string): boolean {
+  const bannerEl = document.querySelector('.tk-banner')
+  const bannerBg = bannerEl?.querySelector('.tk-banner__bg, .tk-banner-bg, [class*="banner"][class*="bg"]') as HTMLElement
+  
+  if (bannerBg) {
+    // 保存当前样式
+    const currentStyles = {
+      backgroundSize: bannerBg.style.backgroundSize || 'cover',
+      backgroundPosition: bannerBg.style.backgroundPosition || 'center center',
+      backgroundRepeat: bannerBg.style.backgroundRepeat || 'no-repeat'
+    }
+    
+    // 获取当前背景图片
+    const currentBg = bannerBg.style.backgroundImage
+    
+    // 如果有当前图片，使用滑动过渡
+    if (currentBg && currentBg !== 'none' && currentBg !== '') {
+      // 设置双层背景进行滑动过渡
+      bannerBg.style.backgroundImage = `url("${imageSrc}"), ${currentBg}`
+      bannerBg.style.backgroundSize = `${currentStyles.backgroundSize}, ${currentStyles.backgroundSize}`
+      bannerBg.style.backgroundRepeat = `${currentStyles.backgroundRepeat}, ${currentStyles.backgroundRepeat}`
+      
+      // 设置初始位置：新图片在右侧，旧图片在正常位置
+      bannerBg.style.backgroundPosition = `120% center, ${currentStyles.backgroundPosition}`
+      bannerBg.style.transition = 'background-position 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      
+      // 延迟一帧确保样式应用
+      requestAnimationFrame(() => {
+        // 滑动过渡：新图片滑入中心，旧图片滑出左侧
+        bannerBg.style.backgroundPosition = `${currentStyles.backgroundPosition}, -120% center`
+        
+        // 过渡完成后清理
+        setTimeout(() => {
+          bannerBg.style.backgroundImage = `url("${imageSrc}")`
+          bannerBg.style.backgroundSize = currentStyles.backgroundSize
+          bannerBg.style.backgroundPosition = currentStyles.backgroundPosition
+          bannerBg.style.backgroundRepeat = currentStyles.backgroundRepeat
+          bannerBg.style.transition = ''
+        }, 2000)
+      })
+    } else {
+      // 首次设置，直接应用
+      bannerBg.style.backgroundImage = `url("${imageSrc}")`
+      bannerBg.style.backgroundSize = currentStyles.backgroundSize
+      bannerBg.style.backgroundPosition = currentStyles.backgroundPosition
+      bannerBg.style.backgroundRepeat = currentStyles.backgroundRepeat
+    }
+    
+    console.log('已更新Banner背景图片:', imageSrc)
+    return true
+  }
+  
+  // 尝试更新所有可能的背景元素
+  const backgroundElements = document.querySelectorAll(
+    '[style*="background-image"], .banner-bg, .tk-banner-bg, .background-image'
+  ) as NodeListOf<HTMLElement>
+  
+  let updated = false
+  backgroundElements.forEach(element => {
+    if (element.style.backgroundImage && element.style.backgroundImage.includes('http')) {
+      const currentStyles = {
+        backgroundSize: element.style.backgroundSize || 'cover',
+        backgroundPosition: element.style.backgroundPosition || 'center center',
+        backgroundRepeat: element.style.backgroundRepeat || 'no-repeat'
+      }
+      
+      const currentBg = element.style.backgroundImage
+      
+      // 如果有当前图片，使用滑动过渡
+      if (currentBg && currentBg !== 'none' && currentBg !== '') {
+        // 设置双层背景进行滑动过渡
+        element.style.backgroundImage = `url("${imageSrc}"), ${currentBg}`
+        element.style.backgroundSize = `${currentStyles.backgroundSize}, ${currentStyles.backgroundSize}`
+        element.style.backgroundRepeat = `${currentStyles.backgroundRepeat}, ${currentStyles.backgroundRepeat}`
+        
+        // 设置初始位置：新图片在右侧，旧图片在正常位置
+        element.style.backgroundPosition = `120% center, ${currentStyles.backgroundPosition}`
+        element.style.transition = 'background-position 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        
+        // 延迟一帧确保样式应用
+        requestAnimationFrame(() => {
+          // 滑动过渡：新图片滑入中心，旧图片滑出左侧
+          element.style.backgroundPosition = `${currentStyles.backgroundPosition}, -120% center`
+          
+          // 过渡完成后清理
+          setTimeout(() => {
+            element.style.backgroundImage = `url("${imageSrc}")`
+            element.style.backgroundSize = currentStyles.backgroundSize
+            element.style.backgroundPosition = currentStyles.backgroundPosition
+            element.style.backgroundRepeat = currentStyles.backgroundRepeat
+            element.style.transition = ''
+          }, 2000)
+        })
+      } else {
+        // 首次设置，直接应用
+        element.style.backgroundImage = `url("${imageSrc}")`
+        element.style.backgroundSize = currentStyles.backgroundSize
+        element.style.backgroundPosition = currentStyles.backgroundPosition
+        element.style.backgroundRepeat = currentStyles.backgroundRepeat
+      }
+      
+      updated = true
+    }
+  })
+  
+  return updated
+}
+
+// 从当前图库中随机选择一张图片展示（带去重逻辑）
+async function displayRandomImage() {
+  // 检查图库是否为空
+  if (!currentImages || currentImages.length === 0) {
+    console.warn('图库为空，使用备用图片')
+    currentImages = getFallbackImages()
+    isUsingFallback = true
+  }
+  
+  let availableImages = currentImages
+  
+  // 如果图库中有多张图片，排除当前正在展示的图片
+  if (currentImages.length > 1 && currentDisplayImage) {
+    availableImages = currentImages.filter(img => img !== currentDisplayImage)
+  }
+  
+  // 如果过滤后没有图片了，使用全部图片
+  if (availableImages.length === 0) {
+    availableImages = currentImages
+  }
+  
+  const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)]
+  
+  // 如果选中的图片和当前展示的相同，直接返回（避免不必要的更新）
+  if (randomImg === currentDisplayImage) return
+  
+  try {
+    // 预加载图片并检测是否成功
+    const preloadSuccess = await preloadImage(randomImg)
+    
+    // 如果图片加载失败且当前使用的是动态图库，切换到备用图片
+    if (!preloadSuccess && !isUsingFallback) {
+      console.warn('🔌 动态图片加载失败，服务可能已停止，切换到备用图片')
+      currentImages = getFallbackImages()
+      isUsingFallback = true
+      
+      // 启动服务监控
+      startServiceMonitoring()
+      
+      // 重新从备用图库选择图片
+      const fallbackImg = currentImages[Math.floor(Math.random() * currentImages.length)]
+      const fallbackPreloadSuccess = await preloadImage(fallbackImg)
+      
+      if (fallbackPreloadSuccess) {
+        currentDisplayImage = fallbackImg
+        updateBannerBackground(fallbackImg)
+        return
+      } else {
+        console.error('备用图片也加载失败')
+        return
+      }
+    } else if (!preloadSuccess) {
+      // 备用图片也加载失败，跳过此次更新
+      console.warn('图片加载失败，跳过此次更新')
+      return
+    }
+    
+    // 更新当前展示图片记录
+    currentDisplayImage = randomImg
+    
+    // 更新Banner背景
+    const success = updateBannerBackground(randomImg)
+    
+    if (!success) {
+      // 如果立即更新失败，等待DOM更新后再试
+      await nextTick()
+      updateBannerBackground(randomImg)
+    }
+    
+    // 设置全局变量供其他组件使用
+    ;(window as any).dynamicWallpapers = currentImages
+    
+    // 触发自定义事件
+    window.dispatchEvent(new CustomEvent('wallpaper-updated', {
+      detail: { images: currentImages, currentImage: randomImg }
+    }))
+    
+    const imageType = isUsingFallback ? '备用' : '动态'
+    console.log(`🎨 已切换${imageType}壁纸:`, randomImg)
+    
+  } catch (error) {
+    console.warn('切换壁纸失败:', error)
+  }
+}
+
+
+// 检测图集服务是否可用（快速检测，用于初始加载）
+async function checkServiceAvailability(): Promise<boolean> {
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 2000) // 2秒快速超时，避免影响页面加载
+    
+    const response = await fetch(WALLPAPER_SERVICE_CONFIG.fullUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      signal: controller.signal
+    })
+    
+    clearTimeout(timeoutId)
+    
+    if (!response.ok) {
+      return false
+    }
+    
+    const data = await response.json()
+    if (!data.images || !Array.isArray(data.images) || data.images.length === 0) {
+      return false
+    }
+    
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+// 服务状态监控（仅在使用备用图片时运行）
+async function monitorServiceStatus() {
+  if (!isUsingFallback) {
+    // 如果不是使用备用图片，停止监控
+    stopServiceMonitoring()
+    return
+  }
+  
+  console.log('🔍 检查图集服务状态...')
+  const isServiceAvailable = await checkServiceAvailability()
+  
+  if (isServiceAvailable) {
+    console.log('✅ 图集服务已恢复！切换回动态图库')
+    
+    // 停止服务监控
+    stopServiceMonitoring()
+    
+    // 重新获取动态图库
+    await fetchImageLibrary()
+    
+    // 立即切换到动态图片
+    if (!isUsingFallback && currentImages.length > 0) {
+      await displayRandomImage()
+    }
+  }
+}
+
+// 停止服务监控
+function stopServiceMonitoring() {
+  if (serviceCheckIntervalId) {
+    clearInterval(serviceCheckIntervalId)
+    serviceCheckIntervalId = null
+    console.log('📴 停止图集服务监控')
+  }
+}
+
+// 启动服务监控（仅在切换到备用图片时启动）
+function startServiceMonitoring() {
+  if (!serviceCheckIntervalId) {
+    serviceCheckIntervalId = window.setInterval(monitorServiceStatus, SERVICE_CHECK_INTERVAL)
+    console.log('👁️ 启动图集服务监控（15秒检测一次）')
+  }
+}
+
+// 获取备用图片列表
+function getFallbackImages(): string[] {
+  // 从 Wallaper.ts 导入的备用图片
+  const fallbackImages = [
+    "https://img.xxdevops.cn/blog/wallpaper/bg01.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg02.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg03.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg04.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg05.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg06.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg07.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg08.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg09.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg10.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg11.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg12.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg13.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg14.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg15.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg16.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg17.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg18.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg19.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg20.webp"
+  ]
+  return fallbackImages
+}
+
+// 从图集服务器获取图库列表
+async function fetchImageLibrary() {
+  try {
+    const images = await fetchDynamicWallpapers()
+    
+    // 检查是否获取到有效的动态图片（非备用图片）
+    const fallbackImages = getFallbackImages()
+    const isDynamicImages = images.some(img => !fallbackImages.includes(img))
+    
+    if (isDynamicImages && images.length > 0) {
+      // 成功获取到动态图库
+      currentImages = images
+      lastSuccessfulFetch = Date.now()
+      
+      if (isUsingFallback) {
+        console.log('✅ 图集服务已恢复，切换回动态图库')
+        isUsingFallback = false
+        // 停止服务监控
+        stopServiceMonitoring()
+      }
+      
+      console.log(`📚 动态图库已更新: ${images.length} 张图片`)
+    } else {
+      // 没有获取到有效的动态图片，使用备用图片
+      if (!isUsingFallback) {
+        console.log('⚠️ 图集服务不可用，切换到备用图片')
+        currentImages = fallbackImages
+        isUsingFallback = true
+        // 启动服务监控
+        startServiceMonitoring()
+      }
+    }
+  } catch (error) {
+    console.warn('获取图库失败，使用备用图片:', error)
+    
+    if (!isUsingFallback) {
+      currentImages = getFallbackImages()
+      isUsingFallback = true
+      // 启动服务监控
+      startServiceMonitoring()
+    }
+  }
+}
+
+onMounted(async () => {
+  console.log('🖼️ 动态壁纸管理器启动')
+  
+  // 快速检测服务状态（1秒超时，避免页面等待太久）
+  console.log('🔍 快速检测图集服务状态...')
+  
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 1000) // 1秒快速检测
+    
+    const response = await fetch(WALLPAPER_SERVICE_CONFIG.fullUrl, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      signal: controller.signal
+    })
+    
+    clearTimeout(timeoutId)
+    
+    if (response.ok) {
+      // 服务可用：直接获取并显示动态图片
+      console.log('✅ 图集服务可用，使用动态壁纸')
+      await fetchImageLibrary()
+      
+      if (!isUsingFallback && currentImages.length > 0) {
+        await displayRandomImage()
+      }
+      
+      // 设置定时器：每60秒更新图库
+      fetchLibraryIntervalId = window.setInterval(fetchImageLibrary, FETCH_LIBRARY_INTERVAL)
+    } else {
+      throw new Error('服务响应异常')
+    }
+  } catch (error) {
+    // 服务不可用：使用备用图片
+    console.log('❌ 图集服务不可用，使用备用壁纸')
+    currentImages = getFallbackImages()
+    isUsingFallback = true
+    await displayRandomImage()
+    
+    // 启动服务监控，等待服务恢复
+    startServiceMonitoring()
+  }
+  
+  // 设置定时器：每10秒切换图片
+  switchImageIntervalId = window.setInterval(displayRandomImage, SWITCH_IMAGE_INTERVAL)
+})
+
+onUnmounted(() => {
+  // 清理图库获取定时器
+  if (fetchLibraryIntervalId) {
+    clearInterval(fetchLibraryIntervalId)
+    fetchLibraryIntervalId = null
+  }
+  
+  // 清理图片切换定时器  
+  if (switchImageIntervalId) {
+    clearInterval(switchImageIntervalId)
+    switchImageIntervalId = null
+  }
+  
+  // 清理服务检测定时器
+  stopServiceMonitoring()
+  
+  console.log('🖼️ 动态壁纸管理器已停止')
+})
+</script>
+
+<style>
+/* 壁纸滑动过渡样式 - 确保背景图片层次正确 */
+.tk-banner .tk-banner__bg,
+.tk-banner .tk-banner-bg,
+.tk-banner [class*="banner"][class*="bg"],
+.banner-bg,
+.tk-banner-bg,
+.background-image {
+  background-blend-mode: normal;
+  /* 确保多层背景正确显示 */
+}
+
+/* 确保背景图片容器有足够的层级 */
+[style*="background-image"] {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 提升Banner背景的优先级 */
+.tk-banner {
+  position: relative;
+  z-index: 0;
+}
+</style>

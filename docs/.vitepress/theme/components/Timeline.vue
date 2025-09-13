@@ -80,20 +80,15 @@ const ADMIN_PASSWORD = 'Hg@2025'; // 这里请修改为您自己的密码
 // 初始化事件列表，从本地存储加载（如果有）
 const events = ref(JSON.parse(localStorage.getItem('timelineEvents')) || [
   {
-    date: '2023-01-15',
-    title: '开始新项目',
-    description: '今天开始了我的第一个大型项目，感到既兴奋又紧张。'
+    date: '2021-07-08',
+    title: '初见',
+    description: '茫茫人海，我们相遇。那一天，我们在一起了，我好幸福。'
   },
   {
-    date: '2023-03-22',
-    title: '完成重要里程碑',
-    description: '成功完成了项目的第一个重要里程碑，团队一起庆祝了一下。'
+    date: '2022-01-25',
+    title: '后来',
+    description: '再见竟是，再也不见。至此，我从未真正地快乐过……'
   },
-  {
-    date: '2023-06-10',
-    title: '参加技术研讨会',
-    description: '今天参加了一个很有意义的技术研讨会，学到了很多新知识。'
-  }
 ]);
 
 // 权限控制相关

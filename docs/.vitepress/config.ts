@@ -212,11 +212,11 @@ const teekConfig = defineTeekConfig({
     // showTag: ["article"], // 是否展示标签
 
     // 将文章信息传到一级标题下面
-    teleport: {
-      selector: "h1",
-      position: "after",
-      className: "h1-bottom-info",
-    },
+    // teleport: {
+    //   selector: "h1",
+    //   position: "after",
+    //   className: "h1-bottom-info",
+    // },
   },
 
 
