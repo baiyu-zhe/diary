@@ -350,7 +350,7 @@ async function updateBannerBackgroundWithCSS(imageSrc: string): Promise<boolean>
     await new Promise<void>(resolve => {
       // 等待新图层过渡动画完全结束再隐藏旧图层
       setTimeout(() => {
-        console.log('🔄 新图层应该已完全可见，开始隐藏旧图层:', oldActiveLayer)
+        console.log('🔄 新图层已完全可见，开始隐藏旧图层:', oldActiveLayer)
 
         // 现在开始隐藏旧图层
         if (oldActiveLayer === 'A') {
@@ -383,8 +383,8 @@ async function updateBannerBackgroundWithCSS(imageSrc: string): Promise<boolean>
           saveLastImage(imageSrc)
 
           resolve()
-        }, 2100) // 等待旧图层过渡动画结束（2s + 100ms 缓冲）
-      }, 2100) // 等待新图层过渡动画完全结束（2s + 100ms 缓冲）
+        }, 2050) // 缩短等待时间（2s + 50ms 缓冲）
+      }, 1800) // 缩短新图层等待时间（1.8s）
     })
 
     // 处理队列中可能的待处理请求
@@ -640,26 +640,26 @@ function startServiceMonitoring() {
 function getFallbackImages(): string[] {
   // 从 Wallaper.ts 导入的备用图片
   const fallbackImages = [
-    "https://img.onedayxyy.cn/blog/wallpaper/bg01.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg02.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg03.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg04.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg05.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg06.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg07.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg08.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg09.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg10.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg11.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg12.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg13.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg14.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg15.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg16.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg17.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg18.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg19.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg20.webp"
+    "https://img.xxdevops.cn/blog/wallpaper/bg01.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg02.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg03.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg04.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg05.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg06.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg07.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg08.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg09.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg10.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg11.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg12.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg13.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg14.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg15.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg16.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg17.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg18.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg19.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg20.webp"
   ]
   return fallbackImages
 }
@@ -886,15 +886,15 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* 壁纸呼吸动画效果 */
+/* 壁纸呼吸动画效果 - 增强可见性版本 */
 @keyframes wallpaper-breathing {
   0%, 100% {
-    transform: scale(1);
-    filter: brightness(1);
+    transform: scale(1) translateZ(0);
+    filter: brightness(1) contrast(1) saturate(1);
   }
   50% {
-    transform: scale(1.02); /* 减少缩放幅度避免溢出产生滚动条 */
-    filter: brightness(1.1);
+    transform: scale(1.025) translateZ(0); /* 增加缩放幅度让效果更明显 */
+    filter: brightness(1.12) contrast(1.05) saturate(1.05); /* 增强滤镜效果 */
   }
 }
 
@@ -991,8 +991,9 @@ onUnmounted(() => {
   will-change: opacity, transform, filter;
   backface-visibility: hidden;
   transform: translateZ(0);
-  /* 呼吸动画 - 图层A */
+  /* 呼吸动画 - 图层A，同步时机 */
   animation: wallpaper-breathing 8s ease-in-out infinite;
+  animation-delay: 0s;
   transform-origin: center center;
 }
 
@@ -1017,25 +1018,29 @@ onUnmounted(() => {
   will-change: opacity, transform, filter;
   backface-visibility: hidden;
   transform: translateZ(0);
-  /* 呼吸动画 - 图层B，与图层A同步 */
+  /* 呼吸动画 - 图层B，与图层A完全同步 */
   animation: wallpaper-breathing 8s ease-in-out infinite;
+  animation-delay: 0s;
   transform-origin: center center;
 }
 
 /* 图层显示控制 - 限制为首页专用 */
-/* 默认状态下两个图层都隐藏 */
+/* 默认状态下两个图层都显示但透明 */
 .VPHome .tk-banner::before,
 .VPHome .tk-banner::after {
-  display: none;
+  display: block;
+  opacity: 0;
 }
 
 /* 有背景时显示对应图层 */
 .VPHome .tk-banner.has-layer-a::before {
   display: block;
+  opacity: var(--layer-a-opacity);
 }
 
 .VPHome .tk-banner.has-layer-b::after {
   display: block;
+  opacity: var(--layer-b-opacity);
 }
 
 /* 图层加载完成后移除预设背景 */
@@ -1057,13 +1062,19 @@ onUnmounted(() => {
   animation-play-state: paused;
 }
 
-/* 动画时机优化 - 只在图层可见时播放动画 */
-.VPHome .tk-banner:not(.has-layer-a)::before {
-  animation-play-state: paused;
+/* 动画时机优化 - 确保图层可见时播放动画 */
+.VPHome .tk-banner.has-layer-a::before {
+  animation-play-state: running;
 }
 
-.VPHome .tk-banner:not(.has-layer-b)::after {
-  animation-play-state: paused;
+.VPHome .tk-banner.has-layer-b::after {
+  animation-play-state: running;
+}
+
+/* 默认情况下也允许动画运行，避免动画被意外暂停 */
+.VPHome .tk-banner::before,
+.VPHome .tk-banner::after {
+  animation-play-state: running;
 }
 
 /* 双图层模式下确保两个动画同步 */
@@ -1079,6 +1090,20 @@ onUnmounted(() => {
   .VPHome .tk-banner::before,
   .VPHome .tk-banner::after {
     animation-duration: 12s;
+    /* 移动端减少性能消耗 */
+    will-change: opacity;
+  }
+
+  /* 移动端呼吸动画重定义 */
+  @keyframes wallpaper-breathing {
+    0%, 100% {
+      transform: scale(1) translateZ(0);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.008) translateZ(0); /* 移动端进一步减少缩放 */
+      filter: brightness(1.05);
+    }
   }
 }
 
@@ -1095,19 +1120,8 @@ onUnmounted(() => {
   animation-duration: 10s;
 }
 
-/* 在移动端减少呼吸效果的幅度 */
+/* 移动端旧背景元素呼吸动画优化 */
 @media (max-width: 768px) {
-  @keyframes wallpaper-breathing {
-    0%, 100% {
-      transform: scale(1);
-      filter: brightness(1);
-    }
-    50% {
-      transform: scale(1.005); /* 移动端进一步减少缩放避免溢出 */
-      filter: brightness(1.03);
-    }
-  }
-  
   .VPHome .wallpaper-breathing {
     animation-duration: 12s; /* 移动端使用更缓慢的呼吸频率 */
   }
