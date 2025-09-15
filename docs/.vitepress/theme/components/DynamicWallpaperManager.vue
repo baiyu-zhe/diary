@@ -251,9 +251,9 @@ function initBannerBackground(imageSrc: string): boolean {
   const bannerEl = document.querySelector('.tk-banner') as HTMLElement
 
   if (bannerEl) {
-    // 设置预设背景色避免白色闪烁
-    bannerEl.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-    bannerEl.style.backgroundColor = '#667eea'
+    // 使用主题背景色避免蓝色闪烁，与blogger-fix.scss保持一致
+    bannerEl.style.background = 'var(--vp-c-bg)'
+    bannerEl.style.backgroundColor = 'var(--vp-c-bg)'
 
     // 立即设置图层A并显示，避免透明状态
     bannerEl.style.setProperty('--layer-a-bg-image', `url("${imageSrc}")`)
@@ -732,7 +732,7 @@ onMounted(async () => {
     // 确保banner容器正确设置后再显示壁纸
     ensureBannerContentStability()
 
-    // 立即显示缓存的壁纸
+    // 立即显示缓存的壁纸，避免任何背景色闪烁
     initBannerBackground(lastImage)
 
     // 如果有缓存图库，优先使用
@@ -954,9 +954,9 @@ onUnmounted(() => {
   /* 创建独立的层叠上下文但不影响子元素 */
   isolation: isolate;
 
-  /* 预设背景色避免白色闪烁 */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-color: #667eea;
+  /* 使用主题背景色避免蓝色闪烁，与blogger-fix.scss保持一致 */
+  background: var(--vp-c-bg);
+  background-color: var(--vp-c-bg);
 
   /* 图层A的CSS变量 */
   --layer-a-bg-image: none;
