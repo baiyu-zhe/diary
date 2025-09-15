@@ -2,14 +2,21 @@
 
 /* 覆盖壁纸加载时的蓝色背景闪烁 */
 .tk-banner {
+  /* 只在非首页移除背景，首页保留动态壁纸功能 */
   background: transparent !important;
   background-color: transparent !important;
 }
 
-/* 壁纸加载前使用主题背景色而不是蓝色 */
-.tk-banner:not(.background-loaded) {
+/* 首页动态壁纸专用样式 - 优先级更高 */
+.VPHome .tk-banner {
   background: var(--vp-c-bg) !important;
   background-color: var(--vp-c-bg) !important;
+}
+
+/* 壁纸加载完成后移除预设背景 */
+.VPHome .tk-banner.background-loaded {
+  background: none !important;
+  background-color: transparent !important;
 }
 
 /* 确保背景图在最底层 */
