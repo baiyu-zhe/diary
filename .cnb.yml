@@ -29,7 +29,7 @@ main:
           image: node:22
           script: >-
             npx edgeone pages deploy ./docs/.vitepress/dist --name
-            vitepress-theme-teek-one-public-2 --token $EDGEONE_PAGES_API_TOKEN
+            vitepress-theme-teek-one-public --token $EDGEONE_PAGES_API_TOKEN
 
 
         # #同步仓库到gitee                  
