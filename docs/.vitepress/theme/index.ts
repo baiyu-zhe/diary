@@ -44,7 +44,6 @@ import "vitepress-theme-teek/tk-plus/fade-up-animation.scss";// 首次加载的�
 
 
 import SLink from "./components/SLink/index.vue"; //友链
-import DynamicWallpaperManager from "./components/DynamicWallpaperManager.vue"; //动态壁纸管理器
 
 // 导入情侣相册组件
 import CoupleAlbum from './components/CoupleAlbum/CoupleAlbum.vue'
@@ -58,7 +57,6 @@ export default {
   extends: Teek,
   async enhanceApp({ app, router }) {
     // 注册组件
-    app.component("DynamicWallpaperManager", DynamicWallpaperManager);
     // app.component("MNavLinks", MNavLinks); // 注册导航组件
     app.component("confetti", confetti); // 注册五彩纸屑组件
 

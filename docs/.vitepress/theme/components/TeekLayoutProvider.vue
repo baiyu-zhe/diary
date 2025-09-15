@@ -96,8 +96,6 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <TitleChange />
       <!-- 返回顶部组件 -->
       <!--<BackToTop /> -->
-      <!-- 动态壁纸管理器 -->
-      <DynamicWallpaperManager />
       
       <!-- 路由切换遮罩动画组件 -->
       <RouteSwitchingLoading />
