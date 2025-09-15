@@ -640,26 +640,26 @@ function startServiceMonitoring() {
 function getFallbackImages(): string[] {
   // 从 Wallaper.ts 导入的备用图片
   const fallbackImages = [
-    "https://img.onedayxyy.cn/blog/wallpaper/bg01.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg02.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg03.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg04.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg05.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg06.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg07.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg08.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg09.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg10.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg11.webp", 
-    "https://img.onedayxyy.cn/blog/wallpaper/bg12.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg13.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg14.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg15.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg16.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg17.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg18.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg19.webp",
-    "https://img.onedayxyy.cn/blog/wallpaper/bg20.webp"
+    "https://img.xxdevops.cn/blog/wallpaper/bg01.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg02.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg03.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg04.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg05.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg06.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg07.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg08.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg09.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg10.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg11.webp", 
+    "https://img.xxdevops.cn/blog/wallpaper/bg12.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg13.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg14.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg15.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg16.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg17.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg18.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg19.webp",
+    "https://img.xxdevops.cn/blog/wallpaper/bg20.webp"
   ]
   return fallbackImages
 }
