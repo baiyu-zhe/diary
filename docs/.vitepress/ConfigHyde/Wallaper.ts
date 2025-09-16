@@ -2,8 +2,8 @@
 
 // 壁纸服务配置 - 统一配置服务地址，一处修改全局生效
 export const WALLPAPER_SERVICE_CONFIG = {
+  baseUrl: 'https://imgapi.onedayxyy.cn',
   // baseUrl: 'https://imgapi.onedayxyy.cn',
-  baseUrl: 'https://imgapi.onedayxyy.cn/',
   apiEndpoint: '/api/images',
   get fullUrl() {
     return `${this.baseUrl}${this.apiEndpoint}`
