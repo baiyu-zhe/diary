@@ -504,18 +504,17 @@ export default defineConfig({
                   // { folderName: "20.文档", prefix: "/note", clear: true }, // 清空 permalink，优先级最高
                   // { folderName: "01.前端/01.vite/", prefix: "/testa/$uuid5/$uuid1/$uuid10/$uuid99", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
                   { folderName: "10.运维", prefix: "/linux/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "20.前端", prefix: "/qianduan/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "30.编程", prefix: "/code/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "35.黑客", prefix: "/hacker/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "40.专题", prefix: "/zhuanti/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "50.工具", prefix: "/tools/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "60.生活", prefix: "/life/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "70.精神小屋", prefix: "/love/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "80.娱乐", prefix: "/yule/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "85.兴趣", prefix: "/xingqu/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "90.关于", prefix: "/about/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "100.Teek", prefix: "/teek/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
-                  { folderName: "105.博客搭建", prefix: "/blog/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "15.前端", prefix: "/qianduan/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "20.编程", prefix: "/code/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "25.黑客", prefix: "/hacker/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "30.专题", prefix: "/zhuanti/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "35.工具", prefix: "/tools/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "40.生活", prefix: "/life/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "45.精神小屋", prefix: "/love/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "50.娱乐", prefix: "/yule/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "55.兴趣", prefix: "/xingqu/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "60.关于", prefix: "/about/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
+                  { folderName: "65.Teek", prefix: "/teek/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
                   // { folderName: "40.专题/10.博客搭建/45.静态站点构建器", prefix: "/zhuanti/$uuid5", removeLevel: 99}, // 清空前缀并且添加前缀使用随机数
                   // { folderName: "40.专题/10.博客搭建/45.静态站点构建器", prefix: "/zhuanti", clear: true }, // 清空前缀并且添加前缀使用随机数
               ];
