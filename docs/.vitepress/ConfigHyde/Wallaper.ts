@@ -54,7 +54,7 @@ async function fetchDynamicWallpapers(): Promise<string[]> {
     const wallpapers = images.map((imagePath: string) => `${WALLPAPER_SERVICE_CONFIG.baseUrl}${imagePath}`);
     
     // 如果获取到图片，返回动态图片列表，否则返回备用图片
-    return wallpapers.length > 0 ? wallpapers : fallbackImages;
+    return wallpapers.length > 0 ? wallpapers : wallpapers;
     
   } catch (error) {
     console.warn('无法获取动态壁纸，使用备用图片:', error);
@@ -74,7 +74,7 @@ function getWallpapers(): Promise<string[]> {
 }
 
 // 导出的Wallpaper数组 - 在服务端渲染时使用备用图片，客户端动态加载
-export const Wallpaper: string[] = [];
+export const Wallpaper: string[] = fallbackImages;
 
 // 导出动态获取函数供主题使用
 export { getWallpapers, fetchDynamicWallpapers };
