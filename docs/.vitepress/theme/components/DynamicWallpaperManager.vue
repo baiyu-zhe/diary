@@ -72,6 +72,10 @@ const LAST_IMAGE_KEY = 'last-wallpaper-image'
 // 保存图库到缓存
 function saveImagesToCache(images: string[]) {
   try {
+    // 检查是否在客户端环境
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return
+    }
     localStorage.setItem(CACHE_KEY, JSON.stringify(images))
   } catch (error) {
     console.warn('保存图库缓存失败:', error)
@@ -81,6 +85,10 @@ function saveImagesToCache(images: string[]) {
 // 从缓存加载图库
 function loadImagesFromCache(): string[] {
   try {
+    // 检查是否在客户端环境
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return []
+    }
     const cached = localStorage.getItem(CACHE_KEY)
     return cached ? JSON.parse(cached) : []
   } catch (error) {
@@ -92,6 +100,10 @@ function loadImagesFromCache(): string[] {
 // 保存最后显示的图片
 function saveLastImage(imageSrc: string) {
   try {
+    // 检查是否在客户端环境
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return
+    }
     localStorage.setItem(LAST_IMAGE_KEY, imageSrc)
   } catch (error) {
     console.warn('保存最后图片失败:', error)
@@ -101,6 +113,10 @@ function saveLastImage(imageSrc: string) {
 // 获取最后显示的图片
 function getLastImage(): string | null {
   try {
+    // 检查是否在客户端环境
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return null
+    }
     return localStorage.getItem(LAST_IMAGE_KEY)
   } catch (error) {
     console.warn('获取最后图片失败:', error)
@@ -217,6 +233,19 @@ function ensureBannerContentStability() {
     bannerEl.style.overflow = 'hidden' // 隐藏背景溢出，避免滚动条
     bannerEl.style.isolation = 'isolate'
 
+    // 在生产环境中，立即隐藏可能的默认背景图片防止闪现
+    const isProduction = import.meta.env.PROD
+    if (isProduction) {
+      // 立即隐藏所有可能的背景元素，防止默认图片闪现
+      const allBgElements = document.querySelectorAll('.tk-banner__bg, .tk-banner-bg, [class*="banner"][class*="bg"], .banner-bg')
+      allBgElements.forEach(el => {
+        const element = el as HTMLElement
+        element.style.opacity = '0'
+        element.style.visibility = 'hidden'
+        element.style.zIndex = '-1000'
+      })
+    }
+
     // 彻底清理可能冲突的旧背景元素样式
     const oldBgElements = bannerEl.querySelectorAll('.tk-banner__bg, .tk-banner-bg, [class*="banner"][class*="bg"]')
     oldBgElements.forEach(el => {
@@ -251,6 +280,14 @@ function initBannerBackground(imageSrc: string): boolean {
   const bannerEl = document.querySelector('.tk-banner') as HTMLElement
 
   if (bannerEl) {
+    // 立即隐藏可能的默认Banner背景，防止闪现
+    const oldBgElements = bannerEl.querySelectorAll('.tk-banner__bg, .tk-banner-bg, [class*="banner"][class*="bg"]')
+    oldBgElements.forEach(el => {
+      const element = el as HTMLElement
+      element.style.opacity = '0'
+      element.style.visibility = 'hidden'
+    })
+
     // 使用主题背景色避免蓝色闪烁，与blogger-fix.scss保持一致
     bannerEl.style.background = 'var(--vp-c-bg)'
     bannerEl.style.backgroundColor = 'var(--vp-c-bg)'
@@ -664,15 +701,88 @@ function getFallbackImages(): string[] {
   return fallbackImages
 }
 
+// 页面刷新时从API获取新壁纸
+async function fetchFreshWallpaperOnRefresh(): Promise<string | null> {
+  try {
+    console.log('🔄 页面刷新，从API获取新壁纸...')
+    const images = await fetchDynamicWallpapers()
+
+    // 检查是否获取到有效的动态图片（非备用图片）
+    const fallbackImages = getFallbackImages()
+    const isDynamicImages = images.some(img => !fallbackImages.includes(img))
+
+    if (isDynamicImages && images.length > 0) {
+      // 成功获取到动态图库
+      currentImages = images
+      lastSuccessfulFetch = Date.now()
+      isUsingFallback = false
+
+      // 保存图库到缓存
+      saveImagesToCache(images)
+
+      // 随机选择一张新壁纸，排除缓存的上一张
+      const lastImage = getLastImage()
+      let availableImages = images
+
+      // 如果有上次的图片且图库有多张图，排除上次的图片
+      if (lastImage && images.length > 1) {
+        availableImages = images.filter(img => img !== lastImage)
+      }
+
+      // 如果过滤后没有图片了，使用全部图片
+      if (availableImages.length === 0) {
+        availableImages = images
+      }
+
+      const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)]
+      console.log(`🎨 刷新获取新壁纸成功: ${randomImg}`)
+
+      return randomImg
+    } else {
+      throw new Error('未获取到有效的动态图片')
+    }
+  } catch (error) {
+    console.warn('刷新获取新壁纸失败，使用备用图片:', error)
+
+    // 使用备用图片
+    const fallbackImages = getFallbackImages()
+    currentImages = fallbackImages
+    isUsingFallback = true
+
+    // 保存备用图库到缓存
+    saveImagesToCache(fallbackImages)
+
+    // 启动服务监控
+    startServiceMonitoring()
+
+    // 从备用图片中随机选择
+    const lastImage = getLastImage()
+    let availableImages = fallbackImages
+
+    if (lastImage && fallbackImages.length > 1) {
+      availableImages = fallbackImages.filter(img => img !== lastImage)
+    }
+
+    if (availableImages.length === 0) {
+      availableImages = fallbackImages
+    }
+
+    const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)]
+    console.log(`🔄 使用备用壁纸: ${randomImg}`)
+
+    return randomImg
+  }
+}
+
 // 从图集服务器获取图库列表
 async function fetchImageLibrary() {
   try {
     const images = await fetchDynamicWallpapers()
-    
+
     // 检查是否获取到有效的动态图片（非备用图片）
     const fallbackImages = getFallbackImages()
     const isDynamicImages = images.some(img => !fallbackImages.includes(img))
-    
+
     if (isDynamicImages && images.length > 0) {
       // 成功获取到动态图库
       currentImages = images
@@ -701,7 +811,7 @@ async function fetchImageLibrary() {
     }
   } catch (error) {
     console.warn('获取图库失败，使用备用图片:', error)
-    
+
     if (!isUsingFallback) {
       currentImages = getFallbackImages()
       isUsingFallback = true
@@ -721,49 +831,70 @@ onMounted(async () => {
     return
   }
 
-  // 立即显示缓存的壁纸，避免黑色背景
-  const lastImage = getLastImage()
-  const cachedImages = loadImagesFromCache()
-
-  if (lastImage) {
-    console.log('🎯 发现缓存壁纸，立即显示:', lastImage)
-    currentDisplayImage = lastImage
-
-    // 确保banner容器正确设置后再显示壁纸
+  // 在生产构建时，增加延迟确保DOM完全ready
+  const isProduction = import.meta.env.PROD
+  const mountDelay = isProduction ? 100 : 0
+  
+  // 使用setTimeout确保在hydration完成后再执行
+  setTimeout(async () => {
+    // 确保banner容器正确设置
     ensureBannerContentStability()
 
-    // 立即显示缓存的壁纸，避免任何背景色闪烁
-    initBannerBackground(lastImage)
-
-    // 如果有缓存图库，优先使用
-    if (cachedImages.length > 0) {
-      currentImages = cachedImages
-      console.log(`📦 加载缓存图库: ${cachedImages.length} 张图片`)
-    } else {
-      // 没有缓存图库时使用备用图片
-      currentImages = getFallbackImages()
+    // 显示主题背景色作为加载状态，避免空白
+    const bannerEl = document.querySelector('.tk-banner') as HTMLElement
+    if (bannerEl) {
+      bannerEl.style.background = 'var(--vp-c-bg)'
+      bannerEl.style.backgroundColor = 'var(--vp-c-bg)'
+      console.log('🎨 设置加载背景色，避免空白显示')
     }
-  } else if (cachedImages.length > 0) {
-    // 没有上次图片但有缓存图库，立即显示一张
-    currentImages = cachedImages
-    console.log(`📦 加载缓存图库: ${cachedImages.length} 张图片`)
 
-    ensureBannerContentStability()
+    // 优先从API获取新的壁纸
+    try {
+      const freshWallpaper = await fetchFreshWallpaperOnRefresh()
+      if (freshWallpaper) {
+        currentDisplayImage = freshWallpaper
+        // 使用新获取的壁纸立即显示
+        const success = initBannerBackground(freshWallpaper)
+        if (success) {
+          console.log('🎯 页面刷新成功显示新壁纸:', freshWallpaper)
+        } else {
+          throw new Error('壁纸显示失败')
+        }
+      } else {
+        throw new Error('未获取到新壁纸')
+      }
+    } catch (error) {
+      console.warn('从API获取新壁纸失败，使用降级方案:', error)
 
-    const randomImg = cachedImages[Math.floor(Math.random() * cachedImages.length)]
-    currentDisplayImage = randomImg
-    initBannerBackground(randomImg)
-  } else {
-    // 没有任何缓存，使用备用图片立即显示
-    currentImages = getFallbackImages()
+      // 降级方案：使用缓存或备用壁纸
+      const lastImage = getLastImage()
+      const cachedImages = loadImagesFromCache()
 
-    ensureBannerContentStability()
+      if (lastImage) {
+        console.log('📦 降级：使用缓存的上次壁纸:', lastImage)
+        currentDisplayImage = lastImage
+        initBannerBackground(lastImage)
 
-    const randomImg = currentImages[Math.floor(Math.random() * currentImages.length)]
-    currentDisplayImage = randomImg
-    initBannerBackground(randomImg)
-    console.log('🔄 使用备用壁纸立即显示:', randomImg)
-  }
+        if (cachedImages.length > 0) {
+          currentImages = cachedImages
+        } else {
+          currentImages = getFallbackImages()
+        }
+      } else if (cachedImages.length > 0) {
+        console.log('📦 降级：使用缓存图库随机壁纸')
+        currentImages = cachedImages
+        const randomImg = cachedImages[Math.floor(Math.random() * cachedImages.length)]
+        currentDisplayImage = randomImg
+        initBannerBackground(randomImg)
+      } else {
+        console.log('📦 降级：使用备用壁纸')
+        currentImages = getFallbackImages()
+        const randomImg = currentImages[Math.floor(Math.random() * currentImages.length)]
+        currentDisplayImage = randomImg
+        initBannerBackground(randomImg)
+      }
+    }
+  }, mountDelay)
 
   // 页面可见性变化监听 - 优化性能
   const handleVisibilityChange = () => {
@@ -830,7 +961,7 @@ onMounted(async () => {
       // 启动服务监控，等待服务恢复
       startServiceMonitoring()
     }
-  }, 1000) // 延迟1秒开始检测，确保缓存壁纸已显示
+  }, isProduction ? 1500 : 1000) // 生产环境增加延迟，确保缓存壁纸已显示
   
   // 设置定时器：每10秒切换图片（确保统一的切换间隔）
   switchImageIntervalId = window.setInterval(displayRandomImage, SWITCH_IMAGE_INTERVAL)
@@ -968,6 +1099,17 @@ onUnmounted(() => {
 
   /* 通用控制变量 */
   --bg-transition-duration: 2s;
+}
+
+/* 生产环境防闪现优化 - 立即隐藏可能的默认背景元素 */
+.VPHome .tk-banner .tk-banner__bg,
+.VPHome .tk-banner .tk-banner-bg,
+.VPHome .tk-banner [class*="banner"][class*="bg"],
+.VPHome .banner-bg {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  z-index: -1000 !important;
+  transition: none !important;
 }
 
 /* 图层A - 使用::before伪元素 - 限制为首页专用 */
