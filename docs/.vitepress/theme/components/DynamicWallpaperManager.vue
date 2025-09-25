@@ -701,15 +701,88 @@ function getFallbackImages(): string[] {
   return fallbackImages
 }
 
+// 页面刷新时从API获取新壁纸
+async function fetchFreshWallpaperOnRefresh(): Promise<string | null> {
+  try {
+    console.log('🔄 页面刷新，从API获取新壁纸...')
+    const images = await fetchDynamicWallpapers()
+
+    // 检查是否获取到有效的动态图片（非备用图片）
+    const fallbackImages = getFallbackImages()
+    const isDynamicImages = images.some(img => !fallbackImages.includes(img))
+
+    if (isDynamicImages && images.length > 0) {
+      // 成功获取到动态图库
+      currentImages = images
+      lastSuccessfulFetch = Date.now()
+      isUsingFallback = false
+
+      // 保存图库到缓存
+      saveImagesToCache(images)
+
+      // 随机选择一张新壁纸，排除缓存的上一张
+      const lastImage = getLastImage()
+      let availableImages = images
+
+      // 如果有上次的图片且图库有多张图，排除上次的图片
+      if (lastImage && images.length > 1) {
+        availableImages = images.filter(img => img !== lastImage)
+      }
+
+      // 如果过滤后没有图片了，使用全部图片
+      if (availableImages.length === 0) {
+        availableImages = images
+      }
+
+      const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)]
+      console.log(`🎨 刷新获取新壁纸成功: ${randomImg}`)
+
+      return randomImg
+    } else {
+      throw new Error('未获取到有效的动态图片')
+    }
+  } catch (error) {
+    console.warn('刷新获取新壁纸失败，使用备用图片:', error)
+
+    // 使用备用图片
+    const fallbackImages = getFallbackImages()
+    currentImages = fallbackImages
+    isUsingFallback = true
+
+    // 保存备用图库到缓存
+    saveImagesToCache(fallbackImages)
+
+    // 启动服务监控
+    startServiceMonitoring()
+
+    // 从备用图片中随机选择
+    const lastImage = getLastImage()
+    let availableImages = fallbackImages
+
+    if (lastImage && fallbackImages.length > 1) {
+      availableImages = fallbackImages.filter(img => img !== lastImage)
+    }
+
+    if (availableImages.length === 0) {
+      availableImages = fallbackImages
+    }
+
+    const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)]
+    console.log(`🔄 使用备用壁纸: ${randomImg}`)
+
+    return randomImg
+  }
+}
+
 // 从图集服务器获取图库列表
 async function fetchImageLibrary() {
   try {
     const images = await fetchDynamicWallpapers()
-    
+
     // 检查是否获取到有效的动态图片（非备用图片）
     const fallbackImages = getFallbackImages()
     const isDynamicImages = images.some(img => !fallbackImages.includes(img))
-    
+
     if (isDynamicImages && images.length > 0) {
       // 成功获取到动态图库
       currentImages = images
@@ -738,7 +811,7 @@ async function fetchImageLibrary() {
     }
   } catch (error) {
     console.warn('获取图库失败，使用备用图片:', error)
-    
+
     if (!isUsingFallback) {
       currentImages = getFallbackImages()
       isUsingFallback = true
@@ -764,48 +837,62 @@ onMounted(async () => {
   
   // 使用setTimeout确保在hydration完成后再执行
   setTimeout(async () => {
-    // 立即显示缓存的壁纸，避免黑色背景
-    const lastImage = getLastImage()
-    const cachedImages = loadImagesFromCache()
+    // 确保banner容器正确设置
+    ensureBannerContentStability()
 
-    if (lastImage) {
-      console.log('🎯 发现缓存壁纸，立即显示:', lastImage)
-      currentDisplayImage = lastImage
+    // 显示主题背景色作为加载状态，避免空白
+    const bannerEl = document.querySelector('.tk-banner') as HTMLElement
+    if (bannerEl) {
+      bannerEl.style.background = 'var(--vp-c-bg)'
+      bannerEl.style.backgroundColor = 'var(--vp-c-bg)'
+      console.log('🎨 设置加载背景色，避免空白显示')
+    }
 
-      // 确保banner容器正确设置后再显示壁纸
-      ensureBannerContentStability()
-
-      // 立即显示缓存的壁纸，避免任何背景色闪烁
-      initBannerBackground(lastImage)
-
-      // 如果有缓存图库，优先使用
-      if (cachedImages.length > 0) {
-        currentImages = cachedImages
-        console.log(`📦 加载缓存图库: ${cachedImages.length} 张图片`)
+    // 优先从API获取新的壁纸
+    try {
+      const freshWallpaper = await fetchFreshWallpaperOnRefresh()
+      if (freshWallpaper) {
+        currentDisplayImage = freshWallpaper
+        // 使用新获取的壁纸立即显示
+        const success = initBannerBackground(freshWallpaper)
+        if (success) {
+          console.log('🎯 页面刷新成功显示新壁纸:', freshWallpaper)
+        } else {
+          throw new Error('壁纸显示失败')
+        }
       } else {
-        // 没有缓存图库时使用备用图片
-        currentImages = getFallbackImages()
+        throw new Error('未获取到新壁纸')
       }
-    } else if (cachedImages.length > 0) {
-      // 没有上次图片但有缓存图库，立即显示一张
-      currentImages = cachedImages
-      console.log(`📦 加载缓存图库: ${cachedImages.length} 张图片`)
+    } catch (error) {
+      console.warn('从API获取新壁纸失败，使用降级方案:', error)
 
-      ensureBannerContentStability()
+      // 降级方案：使用缓存或备用壁纸
+      const lastImage = getLastImage()
+      const cachedImages = loadImagesFromCache()
 
-      const randomImg = cachedImages[Math.floor(Math.random() * cachedImages.length)]
-      currentDisplayImage = randomImg
-      initBannerBackground(randomImg)
-    } else {
-      // 没有任何缓存，使用备用图片立即显示
-      currentImages = getFallbackImages()
+      if (lastImage) {
+        console.log('📦 降级：使用缓存的上次壁纸:', lastImage)
+        currentDisplayImage = lastImage
+        initBannerBackground(lastImage)
 
-      ensureBannerContentStability()
-
-      const randomImg = currentImages[Math.floor(Math.random() * currentImages.length)]
-      currentDisplayImage = randomImg
-      initBannerBackground(randomImg)
-      console.log('🔄 使用备用壁纸立即显示:', randomImg)
+        if (cachedImages.length > 0) {
+          currentImages = cachedImages
+        } else {
+          currentImages = getFallbackImages()
+        }
+      } else if (cachedImages.length > 0) {
+        console.log('📦 降级：使用缓存图库随机壁纸')
+        currentImages = cachedImages
+        const randomImg = cachedImages[Math.floor(Math.random() * cachedImages.length)]
+        currentDisplayImage = randomImg
+        initBannerBackground(randomImg)
+      } else {
+        console.log('📦 降级：使用备用壁纸')
+        currentImages = getFallbackImages()
+        const randomImg = currentImages[Math.floor(Math.random() * currentImages.length)]
+        currentDisplayImage = randomImg
+        initBannerBackground(randomImg)
+      }
     }
   }, mountDelay)
 
