@@ -1,5 +1,7 @@
 <template>
   <div class="link-item-card">
+    <!-- 标签 -->
+    <div class="link-tag" v-if="data.tag">{{data.tag}}</div>
     <a :href="data.link" :title="data.name" target="_blank" rel="noopener">
       <!-- 头像 -->
       <div class="link-avatar">
@@ -43,7 +45,22 @@ const handleImageError = () => {
 </script>
 
 <style scoped>
+.link-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background-color: var(--vp-badge-tip-bg);
+  color: var(--vp-badge-tip-text);
+  letter-spacing: 0.2px;
+}
+
 .link-item-card {
+  position: relative;
   height: 100px;
   border-radius: 12px;
   background: var(--vp-c-bg);

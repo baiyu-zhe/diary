@@ -66,14 +66,48 @@ export const Nav = [
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/博客.svg" alt="" style="width: 16px; height: 16px;">
+              <span>博客搭建</span>
+            </div>
+            `,
+          link: '/zhuanti/blog-index',
+        },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/前端demo.svg" alt="" style="width: 16px; height: 16px;">
+              <span>前端demo</span>
+            </div>
+            `,
+          link: '/zhuanti/qianduan-demo',
+        },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
               <img src="/img/nav/Git.svg" alt="" style="width: 16px; height: 16px;">
               <span>Git</span>
             </div>
             `,
           link: '/zhuanti/git',
         },
-
-
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/面试.svg" alt="" style="width: 16px; height: 16px;">
+              <span>面试</span>
+            </div>
+            `,
+          link: '/zhuanti/mianshi',
+        },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/NAS.svg" alt="" style="width: 16px; height: 16px;">
+              <span>NAS</span>
+            </div>
+            `,
+          link: '/zhuanti/NAS',
+        },
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -83,7 +117,24 @@ export const Nav = [
             `,
           link: '/zhuanti/jiaoben',
         },
-     
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/工具.svg" alt="" style="width: 16px; height: 16px;">
+              <span>工具</span>
+            </div>
+            `,
+          link: '/tools/tools',
+        },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/开源项目.svg" alt="" style="width: 16px; height: 16px;">
+              <span>开源项目</span>
+            </div>
+            `,
+          link: '/zhuanti/opensource',
+        },        
       ],
     },  
 

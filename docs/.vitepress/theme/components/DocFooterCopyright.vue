@@ -9,10 +9,21 @@
         <div class="copyright-item">
           <span class="copyright-meta">
             <span class="shiguang-icon shiguang-icon-user"></span>
-            <span class="meta-text">作者</span>:
+            <span class="meta-text">本文作者</span>:
           </span>
           <span class="copyright-info">
             <a :href="config.authorUrl" target="_blank" rel="noopener">{{ config.authorName }}</a>
+          </span>
+        </div>
+
+        <!-- 文章标题 -->
+        <div class="copyright-item">
+          <span class="copyright-meta">
+            <span class="shiguang-icon shiguang-icon-title"></span>
+            <span class="meta-text">本文标题</span>:
+          </span>
+          <span class="copyright-info">
+            {{ $frontmatter.title }}
           </span>
         </div>
 
@@ -20,7 +31,7 @@
         <div class="copyright-item">
           <span class="copyright-meta">
             <span class="shiguang-icon shiguang-icon-link"></span>
-            <span class="meta-text">链接</span>:
+            <span class="meta-text">本文链接</span>:
           </span>
           <span class="copyright-info">
             <a :href="currentUrl" target="_blank" rel="noopener">{{ currentUrl }}</a>
@@ -31,7 +42,7 @@
         <div class="copyright-item">
           <span class="copyright-meta">
             <span class="shiguang-icon shiguang-icon-cc"></span>
-            <span class="meta-text">版权</span>:
+            <span class="meta-text">版权声明</span>:
           </span>
           <span class="copyright-info">
             本站文章除特别声明外，均采用
@@ -175,6 +186,7 @@ const currentUrl = computed(() => {
 }
 
 .shiguang-icon-user::before { content: '👤'; }
+.shiguang-icon-title::before { content: '📝'; }
 .shiguang-icon-link::before  { content: '🔗'; }
 .shiguang-icon-cc::before    { content: '🌐'; }
 .shiguang-icon-public::before { content: '📡'; }

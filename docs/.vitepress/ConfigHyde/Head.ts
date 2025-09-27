@@ -6,6 +6,7 @@ const description = [
 
 // 导出head.ts
 export const HeadData = [
+
   // 添加 51.la 统计脚本
   [
     "script",
@@ -34,10 +35,16 @@ export const HeadData = [
         });
       `,
   ],
+
+
+
+  
   ["meta", { name: "referrer", content: "no-referrer-when-downgrade" }], //不蒜子统计
   ["meta", { name: "author", content: "Tianke" }],
   ['meta', { property: 'og:description', content: '明心静性，爱自己' }],
+
   ['meta', { property: 'og:image', content: 'https://onedayxyy.cn/img/xyy.webp' }],
+
 
   [
     "meta",
@@ -54,6 +61,8 @@ export const HeadData = [
       description,
     },
   ],
+
+
   ["meta", { name: "keywords", description }],
   ["meta", { name: "baidu-site-verification", content: "codeva-QnY1Xh758j" }], // 百度收录
   [
@@ -61,6 +70,8 @@ export const HeadData = [
     { name: "msvalidate.01", content: "48CABE70F538B8D117567176ABF325AF" },
   ], // Bing 收录验证
   ["link", { rel: "icon", href: "/favicon.ico", type: "image/png" }],
+  
+  
   // 阿里在线矢量库
   [
     "link",

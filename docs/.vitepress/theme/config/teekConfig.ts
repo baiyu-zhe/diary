@@ -1,5 +1,6 @@
 import type { TeekConfig } from "vitepress-theme-teek/config";
 import { version } from "vitepress-theme-teek/es/version";
+
 import { FooterInfo } from "../../ConfigHyde/FooterInfo"; //导入底部信息配置
 import { FriendLink } from "../../ConfigHyde/FriendLink"; // 导入FriendLink模块
 import { HitokotoDate } from "../../ConfigHyde/HitokotoDate"; // 导入HitokotoData模块
@@ -10,7 +11,7 @@ import { SocialDate } from "../../ConfigHyde/SocialDate"; // 导入SocialDate社
 
 // 文档配置
 export const teekDocConfig: TeekConfig = {
-  // 默认配置
+  // 文档风格，footer简洁版
   footerInfo: {
     theme: {
       name: `Theme By Teek@${version}`,
@@ -21,6 +22,7 @@ export const teekDocConfig: TeekConfig = {
     },
   },  
 
+  //选择第三个选项：全部站看，侧边栏和内容区域宽度都可以调整
   themeEnhance: {
     layoutSwitch: {
       defaultMode: "bothWidthAdjustable",
@@ -30,6 +32,8 @@ export const teekDocConfig: TeekConfig = {
 
 // 博客基础配置
 const teekBlogCommonConfig: TeekConfig = {
+
+  //选择第三个选项：全部站看，侧边栏和内容区域宽度都可以调整
   themeEnhance: {
     layoutSwitch: {
       defaultMode: "bothWidthAdjustable",
@@ -74,10 +78,11 @@ const teekBlogCommonConfig: TeekConfig = {
   // footerInfo: {
   //   customHtml: `<span id="runtime"></span>`, // 需要搭配 .vitepress/theme/helper/useRuntime.ts 使用
   // },
-
+  
+  footerInfo: FooterInfo, // 底部信息配置 
   friendLink: FriendLink, // 友链配置
   social: SocialDate, //社交信息配置
-  footerInfo: FooterInfo, // 底部信息配置  
+   
   
 
 

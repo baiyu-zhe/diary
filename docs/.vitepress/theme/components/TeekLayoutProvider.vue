@@ -30,7 +30,7 @@ import Clock from "./Clock.vue"; // 时钟组件
 
 import NoticeCard from "./NoticeCard.vue";
 import WechatAccountCard from "./WechatAccountCard.vue";
-// import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
+import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
 
 
 
@@ -154,6 +154,11 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
     <template #doc-footer-before>
       <DocFooterCopyright />
     </template>
+
+
+    <!-- <template #teek-home-banner-after>
+      <InformationCard />
+    </template>     -->
 
 
         

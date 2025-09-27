@@ -24,7 +24,7 @@ export const FriendLink = {
       avatar: "https://testingcf.jsdelivr.net/gh/Kele-Bingtang/static/user/avatar2.png",
     },     
     {
-      avatar: "https://img.onedayxyy.cn/images/Teekwebsite/hyde.webp",
+      avatar: "https://img.onedayxyy.cn/images/Teek/Teekwebsite/hyde.webp",
       name: "Hyde Blog",
       desc: "人心中的成见是一座大山",
       link: "https://teek.seasir.top/",
@@ -36,7 +36,7 @@ export const FriendLink = {
       link: "https://wiki.eryajf.net/",
     },
     {
-      avatar: "https://img.onedayxyy.cn/images/Teekwebsite/sugarat.top-logo.jpeg",
+      avatar: "https://img.onedayxyy.cn/images/Teek/Teekwebsite/sugarat.top-logo.jpeg",
       name: "粥里有勺糖",
       desc: "你的指尖,拥有改变世界的力量",
       link: "https://sugarat.top/",
@@ -54,13 +54,13 @@ export const FriendLink = {
       link: "https://liuyuyang.net",
     },
     {
-      avatar: "https://img.onedayxyy.cn/images/Teekwebsite/blog.grtsinry43.com.jpeg",
+      avatar: "https://img.onedayxyy.cn/images/Teek/Teekwebsite/blog.grtsinry43.com.jpeg",
       name: "Grtsinry43’s Blog",
       desc: "总之岁月漫长，然而值得等待 ",
       link: "https://blog.grtsinry43.com/",
     },  
     {
-      avatar: "https://img.onedayxyy.cn/images/Teekwebsite/blog.zhheo.com.png",
+      avatar: "https://img.onedayxyy.cn/images/Teek/Teekwebsite/blog.zhheo.com.png",
       name: "张洪Heo",
       desc: "分享设计与科技生活",
       link: "https://blog.zhheo.com/",
@@ -69,7 +69,7 @@ export const FriendLink = {
       name: "王嘉祥",
       desc: "唱响科普和人生兴事，分享科技与美好生活（rust写的zola主题，移植于张洪heo）",
       link: "https://blog.jiaxiang.wang/",
-      avatar: "https://img.onedayxyy.cn/images/Teekwebsite/blog.jiaxiang.wang.webp",
+      avatar: "https://img.onedayxyy.cn/images/Teek/Teekwebsite/blog.jiaxiang.wang.webp",
     },    
   ],
   // autoScroll: true,

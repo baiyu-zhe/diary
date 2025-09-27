@@ -8,16 +8,21 @@ import { useData } from "vitepress";
 import confetti from "./components/Confetti.vue"; //导入五彩纸屑组件
 // import NavIcon from "./components/NavIcon.vue"; //导入导航栏图标
 
+
 // Teek 在线主题包引用（需安装 Teek 在线版本）
 import "vitepress-theme-teek/index.css"; // 引入主题样式
 import "vitepress-theme-teek/theme-chalk/tk-code-block-mobile.css"; // 引入移动端代码块样式
+
 import "vitepress-theme-teek/theme-chalk/tk-sidebar.css"; // 引入侧边栏样式
+
 import "vitepress-theme-teek/theme-chalk/tk-nav.css"; // 引入导航栏样式
+
 import "vitepress-theme-teek/theme-chalk/tk-aside.css"; // 文章目录样式
 import "vitepress-theme-teek/theme-chalk/tk-doc-h1-gradient.css"; // 文档以及标题样式
 import "vitepress-theme-teek/theme-chalk/tk-table.css"; // 表格样式
 import "vitepress-theme-teek/theme-chalk/tk-mark.css"; // 文章 mark 标签样式
 import "vitepress-theme-teek/theme-chalk/tk-blockquote.css"; //引用样式
+
 import "vitepress-theme-teek/theme-chalk/tk-index-rainbow.css"; // Vitepress 首页彩虹渐变样式
 // import "vitepress-theme-teek/theme-chalk/tk-doc-fade-in.css"; // 文档淡入效果样式
 import "vitepress-theme-teek/theme-chalk/tk-banner-desc-gradient.css"; // Banner 描述渐变样式
@@ -31,7 +36,7 @@ import "vitepress-theme-teek/tk-plus/banner-full-img-scale.scss"; // Banner 全�
 
 import "./styles/code-bg.scss";
 import "./styles/iframe.scss";
-import "./style/index.scss"; // 引入全局样式
+import "./style/index.scss"; // 引入One全局样式
 
 // import "virtual:group-icons.css"; //代码组图标样式
 import "vitepress-markdown-timeline/dist/theme/index.css"; // 引入时间线样式
@@ -49,6 +54,8 @@ import SLink from "./components/SLink/index.vue"; //友链
 import CoupleAlbum from './components/CoupleAlbum/CoupleAlbum.vue'
 import PhotoCard from './components/CoupleAlbum/PhotoCard.vue'
 
+// 引入复制事件（复制后弹窗提示）
+import { useCopyEvent } from "./composables/useCopyEvent.ts";
 
 
 // import "./style/sidebar-icon.scss";
@@ -94,6 +101,11 @@ export default {
   Layout: defineComponent({
     name: "LayoutProvider",
     setup() {
+      if (typeof window !== 'undefined') {
+            // 监听复制事件
+            useCopyEvent();
+          }
+
       const props: Record<string, any> = {};
       const { frontmatter } = useData();
 
