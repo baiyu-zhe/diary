@@ -1,24 +1,27 @@
 ---
 layout: home
 
+title: One
+titleTemplate: 明心静性，爱自己
+
 tk:
   teekHome: false
   features: # 可选的
     - title: 初见
-      description: 茫茫人海，我们相遇
+      details: 茫茫人海，我们相遇
       link: / # 可选
       # imgUrl: /img/web.png # 可选
-      imgUrl: /img/xyy-1.webp # 可选
+      image: /img/xyy-1.webp # 可选
     - title: 幸福
-      description: 与你一起，真的幸福
+      details: 与你一起，真的幸福
       link: /
       # imgUrl: /img/ui.png
-      imgUrl: /img/xyy-2.webp
+      image: /img/xyy-2.webp
     - title: 后来
-      description: 再见竟是，再也不见
+      details: 再见竟是，再也不见
       link: /
       # imgUrl: /img/other.png
-      imgUrl: /img/xyy-3.webp     
+      image: /img/xyy-3.webp     
 
 hero:
   name: Teek
@@ -67,6 +70,10 @@ features:
   animation: rainbow 12s linear infinite;
 }
 
+.vp-doc #hero-text {
+  display: none !important;
+}
+
 @media (min-width: 640px) {
   :root {
     --vp-home-hero-image-filter: blur(56px);
@@ -83,7 +90,7 @@ features:
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useData } from "vitepress";
-import DynamicWallpaperManager from "./.vitepress/theme/components/DynamicWallpaperManager.vue";
+import DynamicWallpaperManager from "./.vitepress/theme/components/DynamicWallpaperManager.vue"; //导入壁纸api组件
 
 const { frontmatter } = useData();
 onMounted(() => {
@@ -104,5 +111,6 @@ onMounted(() => {
   </svg>
 </span>
 
-<!-- 首页专用动态壁纸组件 -->
-<DynamicWallpaperManager />
+
+<!-- 首页专用动态壁纸组件-->
+<DynamicWallpaperManager /> 
