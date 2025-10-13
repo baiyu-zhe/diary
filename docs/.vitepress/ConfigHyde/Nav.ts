@@ -124,7 +124,7 @@ export const Nav = [
               <span>工具</span>
             </div>
             `,
-          link: '/tools/tools',
+          link: '/tools/tools-index',
         },
         {
           text: `

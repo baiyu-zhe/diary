@@ -87,3 +87,15 @@
 .VPSidebarItem.level-0.is-active .text {
     @include var.text-gradient;
 }
+
+
+
+/*为独立文档兜底缩进，与一级文件夹平齐*/
+.VPSidebarItem.level-0 .items {
+    padding-left: 0px !important;
+}
+
+/*为独立文档  让高度和目录高度保持一致*/
+.VPSidebarItem.level-0 {
+  padding-bottom: 10px !important;
+}

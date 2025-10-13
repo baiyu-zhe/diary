@@ -32,4 +32,8 @@
 // @use "./home-banner.scss" as *; // 首页banner-文字样式（解决 白色壁纸背景 影响字体问题）
 @use "./blogger-fix.scss" as *; // 修复博主信息卡片背景图层级问题
 
+@use "./blog-banner.scss" as *;// 独立控制白色背景的全屏下，导航栏文字、图标看不见问题
+
 @import './sidebarIcon.css';
+
+

@@ -59,7 +59,8 @@ const teekConfig = defineTeekConfig({
   
   windowTransition: true,
   
-  sidebarTrigger: true,
+  sidebarTrigger: true, //侧边栏收缩
+
   // author: { name: "Teeker", link: "https://github.com/Kele-Bingtang" },
   blogger: {
     // 博主信息，显示在首页侧边栏
@@ -264,7 +265,7 @@ const teekConfig = defineTeekConfig({
 
 
     sidebarOption: {
-      // initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
+      initItems: false, //这条命令注释后，才会让文档和目录的样式保持一致
       collapsed: true, //打开侧边栏自动收缩功能
       ignoreList: [/^_.*$/],
       resolveRule: "rewrites",
