@@ -34,6 +34,8 @@ import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画
 
 
 
+
+
 const ns = "layout-provider";
 const { frontmatter } = useData();
 
@@ -139,9 +141,14 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <WechatAccountCard />
     </template>
 
-    <!-- 回到顶部组件 -->
-    <template #teek-home-bottom-after>
+    <!-- 回到顶部组件插槽 -->
+    <template #teek-back-top>
       <BackTop />
+    </template>
+
+
+    <template #teek-home-bottom-after>
+      <!-- <BackTop /> -->
       <DocFooterCopyright />
     </template>
 
