@@ -320,6 +320,7 @@ export const Nav = [
       text: '🍷关于',
       items: [
         { text: '👋关于我', link: '/about/me' },
+        { text: '🚩个人主页', link: '/about/homepage' },
         { text: '🎉关于本站', link: '/about/website' },
         { text: '💖友链', link: '/about/friend-links' },
         { text: '🌐网站导航', link: '/about/websites' },          
