@@ -34,6 +34,8 @@
 
 @use "./blog-banner.scss" as *;// 独立控制白色背景的全屏下，导航栏文字、图标看不见问题
 
+@use "./home.scss" as *; //返回顶部小火箭css
+
 @import './sidebarIcon.css';
 
 
