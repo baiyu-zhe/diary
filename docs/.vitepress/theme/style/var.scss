@@ -159,3 +159,58 @@ span {
 .VPFeatures .items .item:hover {
   transform: translateY(-5px);
 }
+
+
+
+
+
+
+// 开始******************************************************************************************************************
+// 2025年10月15日 更新
+// 控制首页卡片高度等代码
+// 定义变量
+$white: #ffffff;
+$circle-height: 310px;
+$icons-margin-top: 10px;
+
+// 圆形背景
+.is-circle-bg {
+  height: $circle-height; // 首页卡片栏博主信息高度
+}
+
+.tk-my__icons {
+  margin-top: $icons-margin-top; //首页卡片栏博主信息社交图标位置
+  color: $white; //首页卡片栏作者信息社交图标颜色
+}
+
+// 首页卡片栏博主信息
+.tk-my__blogger {
+  .name,
+  .slogan {
+    color: $white; // 博主名称和标语颜色
+    display: flex; // 水平居中
+    justify-content: center; // 水平居中
+  }
+}
+
+.tk-my__avatar {
+  margin-top: 220px;
+  margin-bottom: 7px;
+}
+// .is-circle-bg {
+//   height: 645px;
+// }
+
+
+
+
+.tk-post-item-card__cover-img .cover-img {
+  cursor: pointer;
+  height: 190px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition: transform .4s linear;
+  width: 100%;
+}
+
+// 结束******************************************************************************************************************

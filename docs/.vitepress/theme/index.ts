@@ -22,6 +22,7 @@ import "vitepress-theme-teek/theme-chalk/tk-doc-h1-gradient.css"; // 文档以�
 import "vitepress-theme-teek/theme-chalk/tk-table.css"; // 表格样式
 import "vitepress-theme-teek/theme-chalk/tk-mark.css"; // 文章 mark 标签样式
 import "vitepress-theme-teek/theme-chalk/tk-blockquote.css"; //引用样式
+import "vitepress-theme-teek/theme-chalk/tk-home-card-hover.css"; // 首页卡片悬停效果
 
 import "vitepress-theme-teek/theme-chalk/tk-index-rainbow.css"; // Vitepress 首页彩虹渐变样式
 // import "vitepress-theme-teek/theme-chalk/tk-doc-fade-in.css"; // 文档淡入效果样式
