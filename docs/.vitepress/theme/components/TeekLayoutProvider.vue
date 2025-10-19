@@ -28,7 +28,10 @@ import Clock from "./Clock.vue"; // 时钟组件
 // @ts-ignore
 // import InformationCard from "./InformationCard.vue";  //导入信息卡片和舔狗日记组件
 
-import NoticeCard from "./NoticeCard.vue";
+import NoticeCard from "./NoticeCard.vue"; //导入公告卡片组件
+import WelcomeCard from "./WelcomeCard.vue"; //导入欢迎卡片组件
+
+
 import WechatAccountCard from "./WechatAccountCard.vue";
 import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画组件
 
@@ -132,11 +135,21 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <BannerImgArrow />
     </template>
 
-    <!-- 自定义公告卡片 -->
+
+
+    <!-- 自定义公告卡片-欢迎语 -->
     <template #teek-home-card-my-after>
+      <!-- <WelcomeCard /> -->
+      <WelcomeCard />
+    </template>    
+
+    <!-- 自定义公告卡片 公告-->
+    <template #teek-home-card-top-article-before>
       <!-- <WelcomeCard /> -->
       <NoticeCard />
     </template>
+
+
 
     <!-- 自定义公告卡片 -->
     <template #teek-home-card-doc-analysis-after>
