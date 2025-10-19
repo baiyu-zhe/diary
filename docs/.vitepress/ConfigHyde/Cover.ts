@@ -19,4 +19,10 @@ export const Cover = [
   "https://img.onedayxyy.cn/images/Teek/TeekCover/17.webp",
   "https://img.onedayxyy.cn/images/Teek/TeekCover/18.webp",
   "https://img.onedayxyy.cn/images/Teek/TeekCover/19.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/20.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/21.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/22.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/23.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/24.webp",
+  "https://img.onedayxyy.cn/images/Teek/TeekCover/25.webp",
 ];

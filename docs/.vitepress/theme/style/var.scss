@@ -3,7 +3,10 @@
 
   // --tk-home-max-width: max(70%, 1330px); /* 现代浏览器会使用这个值 */
   // --tk-home-max-width:  calc(100% - 100% / 3);
-  
+
+  // /* 增大最大宽度值，默认是 1440px，可根据需要调整 */
+  // --vp-layout-max-width: max(90%, 1440px);
+
   --vp-c-brand-1: var(--vp-c-indigo-2);
 
   // --vp-c-indigo-2: #299764; //预设hover
@@ -15,6 +18,12 @@
   // --vp-c-red-2: #d5393e; //红色hover
   // --vp-c-red-3: #e0575b; //红色
 }
+
+// /* 调整主要内容区域的宽度 */
+// .VPDoc.has-aside .content-container {
+//   max-width: 95% !important;
+// }
+
 
 @mixin text-clip-common {
   background-clip: text; /* 标准语法，裁剪背景到文字 */

@@ -38,7 +38,7 @@
         <pre>
 名称: One
 链接: https://onedayxyy.cn/
-头像: https://img.onedayxyy.cn/images/Teekwebsite/xyy-logo.webp
+头像: https://img.onedayxyy.cn/images/Teek/Teekwebsite/xyy-logo.webp
 站点截图：https://img.onedayxyy.cn/images/image-20250502073710566.png
 描述: 明心静性，爱自己</pre>
         <!-- 评论区插槽 -->

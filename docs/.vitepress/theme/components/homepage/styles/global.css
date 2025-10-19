@@ -82,10 +82,10 @@ body {
 }
 
 /* 选中文本样式 */
-::selection {
+/* ::selection {
   background: var(--anzhiyu-main-op);
   color: white;
-}
+} */
 
 ::-moz-selection {
   background: var(--anzhiyu-main-op);

@@ -103,6 +103,7 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <RouteSwitchingLoading />
     </template>
 
+
     <template #teek-theme-enhance-bottom>
       <div :class="[ns, 'flx-align-center']">
         <ConfigSwitch v-model="currentStyle" @switch="handleConfigSwitch" />
@@ -133,6 +134,7 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
 
     <!-- 自定义公告卡片 -->
     <template #teek-home-card-my-after>
+      <!-- <WelcomeCard /> -->
       <NoticeCard />
     </template>
 
