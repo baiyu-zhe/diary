@@ -320,13 +320,37 @@ export const Nav = [
       text: '🍷关于',
       items: [
         { text: '👋关于我', link: '/about/me' },
-        { text: '🚩个人主页', link: '/about/homepage' },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/个人主页.svg" alt="" style="width: 16px; height: 16px;">
+              <span>个人主页</span>
+            </div>
+            `,
+          link: '/about/homepage',
+        },
         { text: '🎉关于本站', link: '/about/website' },
-        { text: '💖友链', link: '/about/friend-links' },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/友链.svg" alt="" style="width: 16px; height: 16px;">
+              <span>友链</span>
+            </div>
+            `,
+          link: '/about/friend-links',
+        },        
         { text: '🌐网站导航', link: '/about/websites' },          
         { text: "👂留言区", link: "/about/liuyanqu" },
         { text: "💡思考", link: "/about/thouht" },
-        { text: "💡情侣相册", link: "/about/love" },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/情侣相册.svg" alt="" style="width: 16px; height: 16px;">
+              <span>情侣相册</span>
+            </div>
+            `,
+          link: '/about/love',
+        },        
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -336,7 +360,15 @@ export const Nav = [
             `,
           link: '/about/time-line',
         },
-        { text: "💡朋友圈", link: "/about/pyq" },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/朋友圈.svg" alt="" style="width: 16px; height: 16px;">
+              <span>朋友圈</span>
+            </div>
+            `,
+          link: '/about/pyq',
+        },        
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
@@ -355,8 +387,15 @@ export const Nav = [
             `,
           link: 'https://status.onedayxyy.cn/status/monitor',
         },
-        { text: "📌我的云盘", link: "https://zdir.onedayxyy.cn/" },
-
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/网盘.svg" alt="" style="width: 16px; height: 16px;">
+              <span>网盘</span>
+            </div>
+            `,
+          link: 'https://zdir.onedayxyy.cn/',
+        },
       ],
     },       
   ]
