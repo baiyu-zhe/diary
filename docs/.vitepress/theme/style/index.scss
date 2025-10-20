@@ -36,7 +36,7 @@
 
 @use "./home.scss" as *; //返回顶部小火箭css
 
-// @use "./KP-doc.scss"; // 引入移植的文档页卡片布局样式
+@use "./scrollbar-2.scss"; // 滚动条样式-2,渐变色滚动条
 
 @import './sidebarIcon.css';
 
