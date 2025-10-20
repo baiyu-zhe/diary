@@ -127,6 +127,7 @@ const noticeContent: NoticeContent = {
 const fetchIPData = async (): Promise<void> => {
   try {
     const API_URL =
+      //修改点1:
       "https://api.nsmao.net/api/ip/query?key=td0O2FhnA8278CARZT8KlRHgKi";  //替换实际自己的API_KEY
 
     const response = await fetch(API_URL);
@@ -154,6 +155,7 @@ const fetchIPData = async (): Promise<void> => {
 const fetchWeatherData = async (): Promise<void> => {
   try {
     const API_URL =
+      //修改点2:
       "https://api.nsmao.net/api/weather/query?key=td0O2FhnA8278CARZT8KlRHgKi";  //替换实际自己的API_KEY
 
     const response = await fetch(API_URL);
@@ -207,8 +209,9 @@ const getLocationText = (): string => {
 const calculateDistance = (): string => {
   if (!ipData.value || !ipData.value.lat || !ipData.value.lng) return "";
 
-  const guangzhouLat = 23.1216;
-  const guangzhouLng = 113.3372;
+  //修改点3：定位下自己所处位置的经纬度，然后写到这里。可以通过  https://www.lddgo.net/convert/position 百度地图来定位自己的位置
+  const guangzhouLat = 31.14; //维度
+  const guangzhouLng = 121.54; //经度
 
   const userLat = ipData.value.lat;
   const userLng = ipData.value.lng;
