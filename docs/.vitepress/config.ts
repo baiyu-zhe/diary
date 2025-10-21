@@ -108,7 +108,7 @@ const teekConfig = defineTeekConfig({
   },
 
   page: {
-    pageSize: 33, //首页 Post 文章列表的分页配置
+    pageSize: 36, //首页 Post 文章列表的分页配置
   },
 
   // 首页尺寸变大
