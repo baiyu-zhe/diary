@@ -37,7 +37,9 @@ import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画
 
 
 
-
+import CalendarCard from "./CalendarCard.vue";
+import ScheduleCard from "./ScheduleCard.vue";
+// import CalendarCard from "./CalendarCard.vue";
 
 const ns = "layout-provider";
 const { frontmatter } = useData();
@@ -147,6 +149,8 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
     <template #teek-home-card-top-article-before>
       <!-- <WelcomeCard /> -->
       <NoticeCard />
+      <CalendarCard />
+      <ScheduleCard />
     </template>
 
 

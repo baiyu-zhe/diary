@@ -59,6 +59,8 @@ import PhotoCard from './components/CoupleAlbum/PhotoCard.vue'
 import { useCopyEvent } from "./composables/useCopyEvent.ts";
 
 
+import "./components/guangbiaoTX/guangbiaoTX.scss"; // ⬅️ 鼠标拖尾样式scss
+import { useGuangbiaoTX } from "./components/guangbiaoTX/useGuangbiaoTX"; // ⬅️ 导入鼠标拖尾星星动画ts
 // import "./style/sidebar-icon.scss";
 
 export default {
@@ -76,6 +78,8 @@ export default {
     // 注册全局组件
     app.component("friend-link", SLink);
 
+  
+
     // 非SSR环境下配置路由进度条
     // @ts-expect-error
     if (!import.meta.env.SSR) {
@@ -86,6 +90,12 @@ export default {
           NProgress.done();
         }, 100);
       };
+
+    // 🔽 鼠标拖尾星星动画
+    if (typeof window !== "undefined") {
+      useGuangbiaoTX();
+    }  
+
     }
       // 不蒜子环境下配置路由进度条
     // if (inBrowser) {
