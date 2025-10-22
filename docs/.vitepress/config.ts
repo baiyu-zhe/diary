@@ -238,10 +238,10 @@ const teekConfig = defineTeekConfig({
   },
 
   // 评论配置
-  comment: {
-    provider: "twikoo",
-    options: CommentData,
-  },
+  // comment: {
+  //   provider: "twikoo",
+  //   options: CommentData,
+  // },
 
 
   // // 公告
