@@ -40,6 +40,7 @@ import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画
 import CalendarCard from "./CalendarCard.vue";
 import ScheduleCard from "./ScheduleCard.vue";
 // import CalendarCard from "./CalendarCard.vue";
+import Twikoo from './Twikoo.vue' //评论组件
 
 const ns = "layout-provider";
 const { frontmatter } = useData();
@@ -181,6 +182,10 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <DocFooterCopyright />
     </template>
 
+    <!-- 评论组件 -->
+    <template #doc-after>
+      <Twikoo />
+    </template>
 
     <!-- <template #teek-home-banner-after>
       <InformationCard />

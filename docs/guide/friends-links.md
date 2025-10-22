@@ -1,3 +1,26 @@
+---
+date: 2025-10-22 15:10:31
+title: friends-links
+categories:
+  - guide
+coverImg: https://img.onedayxyy.cn/images/Teek/TeekCover/20.webp
+---
+# 实现友链页面功能
+
+本教程将指导你如何在 VitePress 主题中实现一个功能丰富的友链页面，包括随机访问、申请友链、头像滚动等功能，并集成 Twikoo 评论系统。
+
+## 1. 准备工作
+
+确保你已经完成以下步骤：
+
+1. 安装 VitePress 主题并配置好基础项目。
+2. 注册 Twikoo 服务并获取 `envId`（环境 ID）。
+
+## 2. 创建友链组件
+
+在主题的组件目录中创建一个 Vue 文件（如 `SLink/index.vue`），并添加以下代码：
+
+```vue
 <template>
   <div class="my-links-container">
     <!-- 页面主标题区域 -->
@@ -95,24 +118,6 @@ import LinkItem from "./LinkItem.vue";
 import Twikoo from "../Twikoo.vue";
 import { computed } from "vue";
 
-/**
- * 单个友链的数据结构定义
- * @typedef {Object} Link
- * @property {string} name - 友链网站名称
- * @property {string} link - 友链网站URL地址
- * @property {string} avatar - 友链网站头像/Logo的图片URL
- * @property {string} descr - 友链网站的简短描述
- * @property {boolean} [irregular] - 可选参数，默认值为false，为false时将把头像处理为圆形
- */
-
-/**
- * 友链分组的数据结构定义
- * @typedef {Object} LinkGroup
- * @property {string} title - 分组标题
- * @property {string} desc - 分组描述文字
- * @property {Link[]} list - 该分组下的友链列表数组
- */
-
 // 从页面frontmatter中获取配置数据
 const { frontmatter } = useData();
 
@@ -141,6 +146,7 @@ const allLinks = computed(() => {
     return acc;
   }, []);
 });
+
 // 将头像平均分成两行，并复制内容以实现无缝滚动
 const avatarRows = computed(() => {
   const avatars = allLinks.value;
@@ -157,6 +163,7 @@ const avatarRows = computed(() => {
   ];
 });
 
+// 随机访问友链
 const handleRandomVisit = () => {
   if (allLinks.value.length === 0) return;
   const randomIndex = Math.floor(Math.random() * allLinks.value.length);
@@ -197,306 +204,65 @@ const handleRandomVisit = () => {
   line-height: 1.2;
   display: inline-block;
 }
-
-/* Banner区域 */
-.flink-banner {
-  border: 1px solid var(--vp-c-divider);
-  background-color: var(--vp-c-bg);
-  border-radius: 12px;
-  padding: 50px 20px 30px;
-  margin-bottom: 60px;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
-
-/* 左上角图标 */
-.icon-heartbeat1::before {
-  margin-right: 8px;
-}
-
-/* 左上角smallTitle */
-.banners-small-title {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--vp-c-text-1);
-  z-index: 2;
-}
-
-/* 右上角按钮组 */
-.banner-button-group {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 12px;
-  z-index: 2;
-}
-
-.banner-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  text-decoration: none;
-}
-
-.banner-button.secondary {
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-divider);
-}
-
-.banner-button.primary {
-  background: var(--vp-button-brand-bg);
-  color: var(--vp-button-brand-text);
-}
-
-/* 两行头像横向滚动区域 */
-.tags-group-all {
-  width: 100%;
-  overflow: hidden;
-  padding: 40px 0 10px;
-  position: relative;
-}
-
-/* 滚动包装器 */
-.tags-group-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* 每一行 */
-.tags-group-row {
-  display: flex;
-  width: max-content;
-  animation: scrollRow 60s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* 内容组 */
-.tags-group-content {
-  display: flex;
-  gap: 20px;
-  padding: 0 10px;
-}
-
-/* 上下行错位排列 */
-.offset-start {
-  margin-left: 60px;
-  /* 错开半个头像 */
-}
-
-/* 滚动动画 */
-@keyframes scrollRow {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-40%);
-  }
-}
-
-/* 头像样式 */
-.tags-group-icon {
-  flex: 0 0 120px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--vp-c-bg-soft);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tags-group-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.tags-group-icon img.irregular {
-  border-radius: 8px;
-  object-fit: contain;
-}
-
-.tags-group-icon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-}
-.my-links-group {
-  margin-bottom: 40px;
-}
-
-/* 分组标题装饰线样式 */
-.title-wrapper {
-  position: relative;
-  margin: 40px 0;
-  height: 1px;
-  background: #ddd;
-  transition: 0.3s;
-}
-
-/* 分组标题文字样式 */
-.title-wrapper h3 {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--vp-c-bg);
-  padding: 0 20px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-  z-index: 1;
-}
-
-/* 分组描述文字样式 */
-.group-desc {
-  text-align: center;
-  color: var(--vp-c-text-2);
-  font-size: 0.95rem;
-  margin-bottom: 30px;
-  padding: 0 10px;
-}
-
-/* 友链网格布局 - 核心响应式实现 */
-.links-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  /* 让所有行的内容居中对齐 */
-  gap: 24px;
-  margin-bottom: 60px;
-  padding: 0 8px;
-}
-
-/* 每个友链项的样式，设置基础宽度 */
-.links-grid__item {
-  flex: 0 0 calc(100% - 24px);
-  /* 移动设备：每行1个 */
-  break-inside: avoid;
-}
-
-/* 平板设备：每行2个 */
-@media (min-width: 768px) {
-  .links-grid__item {
-    flex: 0 0 calc(50% - 24px);
-  }
-}
-
-/* 桌面设备：每行最多4个 */
-@media (min-width: 1024px) {
-  .links-grid__item {
-    flex: 0 0 calc(25% - 24px);
-  }
-}
-
-/* 留言区样式 */
-.my-message-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* 留言卡片样式 */
-.message-card {
-  width: 100%;
-  max-width: 1500px;
-  margin: 30px auto;
-  padding: 32px;
-  border-radius: 12px;
-  background: var(--vp-c-bg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--vp-c-divider);
-  text-align: left;
-  transition: all 0.2s ease;
-}
-
-/* 移动端留言卡片适配 */
-@media (max-width: 768px) {
-  .message-card {
-    padding: 24px;
-    margin: 24px auto;
-  }
-
-  .tags-group-icon {
-    flex: 0 0 80px;
-    width: 80px;
-    height: 80px;
-  }
-
-  .tags-group-content {
-    gap: 15px;
-  }
-
-  .offset-start {
-    margin-left: 40px;
-    /* 移动端适配 */
-  }
-
-  .flink-banner {
-    padding: 30px 15px 20px;
-  }
-
-  .banner-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-
-  /* 两个按钮 */
-  .banner-button-group {
-    display: none;
-  }
-
-  /* 移动端滚动速度调整 */
-  .tags-group-row {
-    animation-duration: 40s;
-  }
-}
-
-/* 示例格式代码块样式 */
-.message-card pre {
-  background: var(--vp-code-block-bg);
-  padding: 16px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  overflow-x: auto;
-  margin: 20px 0;
-  border: 1px solid var(--vp-c-divider);
-  line-height: 1.5;
-}
-
-/* 留言卡片悬停效果 */
-.message-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-}
-
-/* 减少动画对性能的影响 */
-@media (prefers-reduced-motion: reduce) {
-  .tags-group-row {
-    animation: none;
-  }
-}
-
-@media (hover: hover) {
-  .message-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-  }
-}
 </style>
+```
+
+## 3. 配置友链数据
+
+在页面的 frontmatter 中配置友链数据，例如：
+
+```yaml
+---
+title: 我的友链
+banner: true
+bannerButtonGroup: true
+smallTitle: 与各位博主一起成长进步
+comments: true
+links:
+  - title: 技术博客
+    desc: 分享技术干货
+    list:
+      - name: 时光笔记
+        link: https://notes.ksah.cn
+        avatar: https://notes.ksah.cn/logo.png
+        descr: 干货满满的技术笔记
+  - title: 个人博客
+    desc: 记录生活点滴
+    list:
+      - name: One Blog
+        link: https://onedayxyy.cn
+        avatar: https://onedayxyy.cn/logo.png
+        descr: 记录生活与技术的博客
+---
+```
+
+## 4. 集成 Twikoo 评论系统
+
+在友链页面的评论区插槽中，默认集成了 Twikoo 评论组件。确保你已经按照 [Twikoo 集成教程](./twikoo-integration.md) 完成了 Twikoo 的配置。
+
+## 5. 测试功能
+
+启动项目并访问友链页面，确保以下功能正常工作：
+
+1. **随机访问**：点击“随机访问”按钮，随机跳转到友链页面。
+2. **申请友链**：点击“申请友链”按钮，跳转到评论区。
+3. **头像滚动**：确保头像区域实现无缝滚动效果。
+4. **评论功能**：确保 Twikoo 评论系统正常加载。
+
+## 6. 常见问题
+
+1. **头像未显示**：检查 `avatar` 链接是否正确，并确保图片资源可访问。
+2. **随机访问无效**：检查 `allLinks` 是否为空，并确保 `handleRandomVisit` 逻辑正确。
+3. **评论未加载**：检查 Twikoo 的 `envId` 配置是否正确。
+
+## 7. 扩展功能
+
+你可以进一步优化友链页面，例如：
+
+1. **自定义样式**：修改 CSS 文件以适配你的主题风格。
+2. **动态加载友链**：通过 API 动态加载友链数据。
+3. **更多交互功能**：添加点赞、分享等功能。
+
+---
+
+通过以上步骤，你已经成功实现了一个功能丰富的友链页面。接下来，你可以继续优化其他页面或功能模块。
