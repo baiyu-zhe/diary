@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <!-- 背景装饰元素 -->
+  <div class="page-wrapper">
+    <!-- 背景装饰元素 - 全屏覆盖 -->
     <div class="bg-decoration">
       <div class="heart-decoration" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
       <div class="heart-decoration" style="top: 20%; right: 10%; animation-delay: 1s;"></div>
@@ -9,94 +9,99 @@
       <div class="heart-decoration" style="top: 40%; right: 20%; animation-delay: 1.5s;"></div>
     </div>
 
-    <!-- 标题区域 -->
-    <header class="header">
-      <h1 class="main-title">我们的爱情计时器</h1>
-      <p class="subtitle">记录从相遇的那一刻起，每一段珍贵的时光</p>
-      <div class="divider">
-        <div class="divider-dot"></div>
-      </div>
-    </header>
+    <!-- 内容容器 - 居中且有最大宽度 -->
+    <div class="content-container">
+      <!-- 标题区域 -->
+      <header class="header">
+        <h1 class="main-title">我们的爱情计时器</h1>
+        <p class="subtitle">记录从相遇的那一刻起，每一段珍贵的时光</p>
+        <div class="divider">
+          <div class="divider-dot"></div>
+        </div>
+      </header>
 
-    <!-- 情侣头像区域 -->
-    <div class="avatar-container">
-      <!-- 左侧头像 -->
-      <div class="avatar-wrapper left-avatar">
-        <img src="https://picsum.photos/seed/lover1/200" alt="情侣头像1" class="avatar-image">
-        <div class="gender-indicator male">
-          <span class="icon">♂</span>
+      <!-- 情侣头像区域 -->
+      <div class="avatar-container">
+        <!-- 左侧头像 -->
+        <div class="avatar-wrapper left-avatar">
+          <img src="https://img.onedayxyy.cn/images/hg.jpg" alt="情侣头像1" class="avatar-image">
+          <div class="gender-indicator male">
+            <span class="icon">♂</span>
+          </div>
+          <div class="nickname">hg</div> <!-- 左侧昵称 -->
+        </div>
+        
+        <!-- 中间跳动的爱心 -->
+        <div class="heart-connector">
+          <div class="heart-pulse"></div>
+          <div class="heart-icon">❤</div>
+        </div>
+        
+        <!-- 右侧头像 -->
+        <div class="avatar-wrapper right-avatar">
+          <img src="https://img.onedayxyy.cn/images/fxj.jpg" alt="情侣头像2" class="avatar-image">
+          <div class="gender-indicator female">
+            <span class="icon">♀</span>
+          </div>
+          <div class="nickname">fxj</div> <!-- 右侧昵称 -->
         </div>
       </div>
-      
-      <!-- 中间跳动的爱心 -->
-      <div class="heart-connector">
-        <div class="heart-pulse"></div>
-        <div class="heart-icon">❤</div>
+
+      <!-- 相识日期展示 -->
+      <div class="meet-date">
+        我们相识于：<span class="highlight">2025年5月29日 17:00</span>
       </div>
-      
-      <!-- 右侧头像 -->
-      <div class="avatar-wrapper right-avatar">
-        <img src="https://picsum.photos/seed/lover2/200" alt="情侣头像2" class="avatar-image">
-        <div class="gender-indicator female">
-          <span class="icon">♀</span>
+
+      <!-- 计时器主区域 -->
+      <div class="timer-grid">
+        <!-- 年 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.years}" class="time-value">{{ years }}</div>
+          <div class="time-label">年</div>
+        </div>
+        
+        <!-- 月 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.months}" class="time-value">{{ months }}</div>
+          <div class="time-label">月</div>
+        </div>
+        
+        <!-- 日 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.days}" class="time-value">{{ days }}</div>
+          <div class="time-label">日</div>
+        </div>
+        
+        <!-- 时 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.hours}" class="time-value">{{ hours }}</div>
+          <div class="time-label">时</div>
+        </div>
+        
+        <!-- 分 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.minutes}" class="time-value">{{ minutes }}</div>
+          <div class="time-label">分</div>
+        </div>
+        
+        <!-- 秒 -->
+        <div class="timer-card">
+          <div :class="{'number-change': isChanged.seconds}" class="time-value">{{ seconds }}</div>
+          <div class="time-label">秒</div>
         </div>
       </div>
-    </div>
 
-    <!-- 相识日期展示 -->
-    <div class="meet-date">
-      我们相识于：<span class="highlight">2025年5月29日 17:00</span>
-    </div>
+      <!-- 爱情寄语 -->
+      <div class="love-message">
+        <p>"时光荏苒，爱意渐浓<br>你愿意，我值得<br>每一秒都是我们爱情的见证"</p>
+        <div class="message-heart">❤</div>
+      </div>
 
-    <!-- 计时器主区域 -->
-    <div class="timer-grid">
-      <!-- 年 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.years}" class="time-value">{{ years }}</div>
-        <div class="time-label">年</div>
-      </div>
-      
-      <!-- 月 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.months}" class="time-value">{{ months }}</div>
-        <div class="time-label">月</div>
-      </div>
-      
-      <!-- 日 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.days}" class="time-value">{{ days }}</div>
-        <div class="time-label">日</div>
-      </div>
-      
-      <!-- 时 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.hours}" class="time-value">{{ hours }}</div>
-        <div class="time-label">时</div>
-      </div>
-      
-      <!-- 分 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.minutes}" class="time-value">{{ minutes }}</div>
-        <div class="time-label">分</div>
-      </div>
-      
-      <!-- 秒 -->
-      <div class="timer-card">
-        <div :class="{'number-change': isChanged.seconds}" class="time-value">{{ seconds }}</div>
-        <div class="time-label">秒</div>
-      </div>
+      <!-- 页脚 -->
+      <footer class="footer">
+        愿我们的故事，永远继续下去...
+      </footer>
     </div>
-
-    <!-- 爱情寄语 -->
-    <div class="love-message">
-      <p>"时光荏苒，爱意渐浓<br>每一秒都是我们爱情的见证"</p>
-      <div class="message-heart">❤</div>
-    </div>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-      愿我们的故事，永远继续下去...
-    </footer>
   </div>
 </template>
 
@@ -211,7 +216,7 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* 全局样式 - 确保背景样式全局生效 */
+/* 全局样式 */
 :root {
   --color-love-light: #FFD1DC; /* 浅粉色 */
   --color-love: #FF69B4; /* 粉色 */
@@ -227,30 +232,30 @@ onUnmounted(() => {
   padding: 0;
   box-sizing: border-box;
 }
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* 防止横向滚动 */
+}
 </style>
 
 <style scoped>
-/* 容器样式 - 强化粉色背景 */
-.container {
+/* 页面外层容器 - 全屏覆盖 */
+.page-wrapper {
+  width: 100%;
   min-height: 100vh;
-  /* 增强粉色占比，让粉色更明显 */
+  /* 粉色渐变背景 - 全屏覆盖 */
   background: linear-gradient(135deg, 
     var(--color-love-light) 20%, 
     var(--color-romantic-light) 50%, 
     var(--color-love-light) 80%);
-  color: #333;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
-  overflow: hidden;
 }
 
-/* 背景装饰 */
+/* 背景装饰 - 全屏覆盖 */
 .bg-decoration {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
@@ -264,7 +269,7 @@ onUnmounted(() => {
   position: absolute;
   color: var(--color-love);
   font-size: 40px;
-  opacity: 0.15; /* 降低透明度，避免掩盖背景色 */
+  opacity: 0.15;
   animation: float 6s ease-in-out infinite, heartbeat 1.5s ease-in-out infinite;
 }
 
@@ -272,11 +277,25 @@ onUnmounted(() => {
   content: '❤';
 }
 
+/* 内容容器 - 居中显示，有最大宽度限制 */
+.content-container {
+  width: 100%;
+  max-width: 1200px; /* 大屏幕最大宽度 */
+  min-height: 100vh;
+  margin: 0 auto; /* 水平居中 */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
 /* 标题区域 */
 .header {
   text-align: center;
   margin: 20px 0 30px;
-  z-index: 1;
   width: 100%;
   max-width: 600px;
 }
@@ -328,12 +347,14 @@ onUnmounted(() => {
   width: 100%;
   max-width: 500px;
   margin-bottom: 30px;
-  z-index: 1;
   gap: 20px;
 }
 
 .avatar-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 使头像和昵称居中对齐 */
 }
 
 .avatar-image {
@@ -344,6 +365,16 @@ onUnmounted(() => {
   border: 4px solid white;
   box-shadow: 0 0 0 2px var(--color-love);
   animation: float 6s ease-in-out infinite;
+}
+
+/* 昵称样式 */
+.nickname {
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--color-love-dark);
+  font-size: 16px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .left-avatar .avatar-image {
@@ -411,7 +442,6 @@ onUnmounted(() => {
   box-shadow: var(--shadow-soft);
   margin-bottom: 30px;
   color: #666;
-  z-index: 1;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -426,9 +456,7 @@ onUnmounted(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   width: 100%;
-  max-width: 800px;
   margin-bottom: 40px;
-  z-index: 1;
 }
 
 @media (min-width: 640px) {
@@ -448,6 +476,11 @@ onUnmounted(() => {
     height: 120px;
   }
   
+  .nickname {
+    font-size: 18px; /* 大屏幕昵称稍大 */
+    margin-top: 12px;
+  }
+  
   .heart-icon {
     font-size: 50px;
   }
@@ -455,6 +488,17 @@ onUnmounted(() => {
   .heart-pulse {
     width: 60px;
     height: 60px;
+  }
+}
+
+/* 大屏幕适配 */
+@media (min-width: 1200px) {
+  .content-container {
+    padding: 40px;
+  }
+  
+  .timer-grid {
+    gap: 30px;
   }
 }
 
@@ -492,7 +536,6 @@ onUnmounted(() => {
   text-align: center;
   max-width: 500px;
   margin: 30px 0 40px;
-  z-index: 1;
 }
 
 .love-message p {
@@ -516,7 +559,6 @@ onUnmounted(() => {
   font-size: 14px;
   margin-top: auto;
   padding: 20px 0;
-  z-index: 1;
   font-family: 'Montserrat', sans-serif;
 }
 

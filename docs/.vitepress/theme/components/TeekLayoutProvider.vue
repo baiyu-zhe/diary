@@ -184,7 +184,8 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
     </template>
 
     <!-- 评论组件 -->
-    <template #doc-after>
+    <!-- <template #doc-after> -->
+    <template #teek-doc-after-appreciation-after>
       <Twikoo />
     </template>    
 

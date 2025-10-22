@@ -276,4 +276,9 @@ onMounted(() => {
     height 0.1s,
     opacity 0.1s;
 }
+
+.banner-button.primary[data-v-7a7fc354] {
+    background: #0975e3;
+    color: var(--vp-button-brand-text);
+}
 </style>
