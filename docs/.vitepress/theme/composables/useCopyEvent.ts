@@ -29,6 +29,6 @@ export function useCopyEvent(): void {
 
     setTimeout(() => {
       banner.classList.add("hide");
-    }, 5000);
+    }, 2500);
   }
 }

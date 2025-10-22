@@ -94,10 +94,10 @@ export const Nav = [
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
               <img src="/img/nav/面试.svg" alt="" style="width: 16px; height: 16px;">
-              <span>面试</span>
+              <span>面试题</span>
             </div>
             `,
-          link: '/zhuanti/mianshi',
+          link: '/zhuanti/mianshiti',
         },
         {
           text: `
@@ -134,7 +134,8 @@ export const Nav = [
             </div>
             `,
           link: '/zhuanti/opensource',
-        },        
+        },   
+      
       ],
     },  
 
@@ -396,6 +397,15 @@ export const Nav = [
             `,
           link: 'https://zdir.onedayxyy.cn/',
         },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/开源项目.svg" alt="" style="width: 16px; height: 16px;">
+              <span>情侣恋爱计时器</span>
+            </div>
+            `,
+          link: '/about/ql-timer',
+        },  
       ],
     },       
   ]

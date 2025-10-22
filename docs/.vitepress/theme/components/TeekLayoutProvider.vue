@@ -37,9 +37,11 @@ import RouteSwitchingLoading from "./RouteSwitchingLoading.vue"; // 过渡动画
 
 
 
-import CalendarCard from "./CalendarCard.vue";
-import ScheduleCard from "./ScheduleCard.vue";
+import CalendarCard from "./CalendarCard.vue"; //日历卡片
+import ScheduleCard from "./ScheduleCard.vue"; //节日倒计时卡片
 // import CalendarCard from "./CalendarCard.vue";
+
+
 import Twikoo from './Twikoo.vue' //评论组件
 
 const ns = "layout-provider";
@@ -139,7 +141,11 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
     </template>
 
 
+    <!-- <template #doc-after>
+      <Twikoo />
+    </template> -->
 
+    
     <!-- 自定义公告卡片-欢迎语 -->
     <template #teek-home-card-my-after>
       <!-- <WelcomeCard /> -->
@@ -177,15 +183,16 @@ const handleConfigSwitch = (config: TeekConfig, style: string) => {
       <Clock/>
     </template>
 
+    <!-- 评论组件 -->
+    <template #doc-after>
+      <Twikoo />
+    </template>    
+
     <!-- 文章末尾版权说明 -->
     <template #doc-footer-before>
       <DocFooterCopyright />
     </template>
 
-    <!-- 评论组件 -->
-    <template #doc-after>
-      <Twikoo />
-    </template>
 
     <!-- <template #teek-home-banner-after>
       <InformationCard />

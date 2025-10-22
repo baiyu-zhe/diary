@@ -74,10 +74,11 @@
         <p>留言格式：</p>
         <!-- 示例格式 -->
         <pre>
-名称: 时光笔记
-链接: https://notes.ksah.cn
-头像: https://notes.ksah.cn/logo.png
-描述: 干货满满的技术笔记</pre>
+名称: One
+链接: https://onedayxyy.cn/
+头像: https://img.onedayxyy.cn/images/Teek/Teekwebsite/xyy-logo.webp
+站点截图：https://img.onedayxyy.cn/images/image-20250502073710566.png
+描述: 明心静性，爱自己</pre>
         <!-- 评论区插槽 -->
         <!-- 默认为Twikoo评论组件，可通过插槽自定义其他评论系统 -->
         <slot name="comments">
