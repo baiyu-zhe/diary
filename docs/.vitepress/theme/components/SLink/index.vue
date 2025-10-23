@@ -71,13 +71,20 @@
 
       <!-- 留言卡片容器 -->
       <div class="message-card">
+        <!-- 复制按钮区域 -->
+        <div class="copy-button-container">
+          <button class="copy-button" @click="copyMessageFormat" :aria-label="copyButtonText">
+            <i class="icon-copy" style="font-size: 16px;"></i>
+            <span class="copy-button-text">{{ copyButtonText }}</span>
+          </button>
+        </div>
+        
         <p>留言格式：</p>
         <!-- 示例格式 -->
-        <pre>
+        <pre ref="messageFormat">
 名称: One
 链接: https://onedayxyy.cn/
 头像: https://img.onedayxyy.cn/images/Teek/Teekwebsite/xyy-logo.webp
-站点截图：https://img.onedayxyy.cn/images/image-20250502073710566.png
 描述: 明心静性，爱自己</pre>
         <!-- 评论区插槽 -->
         <!-- 默认为Twikoo评论组件，可通过插槽自定义其他评论系统 -->
@@ -94,7 +101,7 @@ import { useData } from "vitepress";
 import LinkItem from "./LinkItem.vue";
 // 导入Twikoo评论组件
 import Twikoo from "../Twikoo.vue";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 /**
  * 单个友链的数据结构定义
@@ -163,6 +170,21 @@ const handleRandomVisit = () => {
   const randomIndex = Math.floor(Math.random() * allLinks.value.length);
   const randomLink = allLinks.value[randomIndex];
   window.open(randomLink.link, "_blank");
+};
+
+// 复制功能相关
+const messageFormat = ref(null);
+const copyButtonText = ref('复制格式');
+const copyMessageFormat = async () => {
+  if (!messageFormat.value) return;
+    const text = messageFormat.value.textContent;
+    await navigator.clipboard.writeText(text);
+    // 复制成功反馈
+    copyButtonText.value = '已复制 !';
+    // 2秒后恢复原文本
+    setTimeout(() => {
+      copyButtonText.value = '复制格式';
+    }, 2000);
 };
 </script>
 
@@ -424,7 +446,57 @@ const handleRandomVisit = () => {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--vp-c-divider);
   text-align: left;
-  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* 复制按钮容器 */
+.copy-button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+/* 复制按钮样式 */
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  border: none;
+}
+
+.copy-button:hover {
+  background: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+/* 示例格式代码块样式 */
+.message-card pre {
+  background: var(--vp-code-block-bg);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  margin: 20px 0;
+  border: 1px solid var(--vp-c-divider);
+  line-height: 1.5;
+  position: relative;
 }
 
 /* 移动端留言卡片适配 */
@@ -432,6 +504,18 @@ const handleRandomVisit = () => {
   .message-card {
     padding: 24px;
     margin: 24px auto;
+  }
+
+  .copy-button-container {
+    position: static;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .copy-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
   }
 
   .tags-group-icon {
@@ -469,35 +553,10 @@ const handleRandomVisit = () => {
   }
 }
 
-/* 示例格式代码块样式 */
-.message-card pre {
-  background: var(--vp-code-block-bg);
-  padding: 16px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  overflow-x: auto;
-  margin: 20px 0;
-  border: 1px solid var(--vp-c-divider);
-  line-height: 1.5;
-}
-
-/* 留言卡片悬停效果 */
-.message-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-}
-
 /* 减少动画对性能的影响 */
 @media (prefers-reduced-motion: reduce) {
   .tags-group-row {
     animation: none;
-  }
-}
-
-@media (hover: hover) {
-  .message-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
   }
 }
 </style>
