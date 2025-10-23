@@ -400,7 +400,7 @@ export const Nav = [
         {
           text: `
             <div style="display: flex; align-items: center; gap: 4px;">
-              <img src="/img/nav/开源项目.svg" alt="" style="width: 16px; height: 16px;">
+              <img src="/img/nav/恋爱.svg" alt="" style="width: 16px; height: 16px;">
               <span>情侣恋爱计时器</span>
             </div>
             `,
