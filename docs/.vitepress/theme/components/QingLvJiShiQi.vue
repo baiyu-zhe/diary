@@ -28,7 +28,7 @@
           <div class="gender-indicator male">
             <span class="icon">♂</span>
           </div>
-          <div class="nickname">hg</div> <!-- 左侧昵称 -->
+          <div class="nickname">hg</div>
         </div>
         
         <!-- 中间跳动的爱心 -->
@@ -43,7 +43,7 @@
           <div class="gender-indicator female">
             <span class="icon">♀</span>
           </div>
-          <div class="nickname">fxj</div> <!-- 右侧昵称 -->
+          <div class="nickname">fxj</div>
         </div>
       </div>
 
@@ -225,6 +225,7 @@ onUnmounted(() => {
   --color-romantic-dark: #9370DB; /* 深紫色 */
   --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 10px 25px -5px rgba(255, 105, 180, 0.3);
+  --shadow-hover: 0 12px 30px -8px rgba(255, 105, 180, 0.4);
 }
 
 * {
@@ -354,7 +355,8 @@ html, body {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 使头像和昵称居中对齐 */
+  align-items: center;
+  transition: all 0.4s ease;
 }
 
 .avatar-image {
@@ -363,26 +365,29 @@ html, body {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
-  box-shadow: 0 0 0 2px var(--color-love);
-  animation: float 6s ease-in-out infinite;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(255, 105, 180, 0.2);
+  transition: all 0.4s ease;
 }
 
-/* 昵称样式 */
+.avatar-wrapper:hover .avatar-image {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: var(--shadow-hover);
+}
+
 .nickname {
-  margin-top: 10px;
+  margin-top: 12px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   color: var(--color-love-dark);
   font-size: 16px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
 }
 
-.left-avatar .avatar-image {
-  animation-delay: 0.5s;
-}
-
-.right-avatar .avatar-image {
-  animation-delay: 1s;
+.avatar-wrapper:hover .nickname {
+  color: var(--color-love);
+  transform: translateY(-2px);
 }
 
 .gender-indicator {
@@ -397,6 +402,12 @@ html, body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.avatar-wrapper:hover .gender-indicator {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .male .icon {
@@ -407,8 +418,12 @@ html, body {
   color: #EC4899;
 }
 
+/* 中间爱心 - 核心优化：修复底部红色圆圈问题 */
 .heart-connector {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heart-icon {
@@ -416,20 +431,22 @@ html, body {
   color: var(--color-love-dark);
   animation: heartbeat 1.5s ease-in-out infinite;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* 确保爱心在圆圈上方 */
 }
 
+/* 优化红色脉冲圆圈：缩小尺寸、降低透明度、弱化效果 */
 .heart-pulse {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
+  width: 20px; /* 大幅缩小尺寸（原50px） */
+  height: 20px;
   background-color: var(--color-love);
   border-radius: 50%;
-  opacity: 0.3;
-  animation: heartbeat 1.5s ease-in-out infinite;
+  opacity: 0.15; /* 降低透明度（原0.3） */
+  /* 调整动画：更柔和的缩放，避免过于明显 */
+  animation: heartPulse 1.5s ease-in-out infinite;
   z-index: 1;
 }
 
@@ -443,6 +460,12 @@ html, body {
   margin-bottom: 30px;
   color: #666;
   font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.meet-date:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
 }
 
 .highlight {
@@ -474,20 +497,26 @@ html, body {
   .avatar-image {
     width: 120px;
     height: 120px;
+    transform: translateY(-8px);
+  }
+  
+  .avatar-wrapper:hover .avatar-image {
+    transform: translateY(-12px) scale(1.05);
   }
   
   .nickname {
-    font-size: 18px; /* 大屏幕昵称稍大 */
-    margin-top: 12px;
+    font-size: 18px;
+    margin-top: 15px;
   }
   
   .heart-icon {
     font-size: 50px;
   }
   
+  /* 大屏幕适配脉冲圆圈 */
   .heart-pulse {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -514,7 +543,7 @@ html, body {
 
 .timer-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 15px 30px -5px rgba(255, 105, 180, 0.4);
+  box-shadow: var(--shadow-hover);
 }
 
 .time-value {
@@ -544,6 +573,11 @@ html, body {
   color: var(--color-romantic-dark);
   font-style: italic;
   line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+.love-message:hover p {
+  color: var(--color-love-dark);
 }
 
 .message-heart {
@@ -560,15 +594,28 @@ html, body {
   margin-top: auto;
   padding: 20px 0;
   font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
 }
 
-/* 动画定义 */
+.footer:hover {
+  color: var(--color-love-dark);
+  transform: translateY(-2px);
+}
+
+/* 动画定义：优化爱心脉冲动画 */
 @keyframes heartbeat {
   0% { transform: scale(1); }
   14% { transform: scale(1.1); }
   28% { transform: scale(1); }
   42% { transform: scale(1.1); }
   70% { transform: scale(1); }
+}
+
+/* 新的脉冲动画：更柔和的缩放效果 */
+@keyframes heartPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; }
+  50% { transform: translate(-50%, -50%) scale(1.8); opacity: 0.2; } /* 缩放幅度减小 */
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; }
 }
 
 @keyframes float {
