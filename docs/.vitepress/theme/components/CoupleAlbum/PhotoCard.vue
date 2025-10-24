@@ -58,7 +58,7 @@
   const getCategoryName = (category) => {
     const categories = {
       'date': '约会时光',
-      'travel': '旅行足迹',
+      'travel': '日记/计划',
       'festival': '节日庆典',
       'daily': '日常点滴'
     };

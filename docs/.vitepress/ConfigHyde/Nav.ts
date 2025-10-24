@@ -3,9 +3,11 @@ import { TeekIcon, VdoingIcon, SSLIcon, BlogIcon } from "./icon/NavIcon";
 export const Nav = [
     { text: "🏡首页", link: "/" },
 
-
-
-
+    // 日记/计划
+    {
+      text: '🏓日记&计划',
+      link: '/diaryPlan/diaryPlan-index',
+    },
 
     // 笔记
     {
@@ -50,7 +52,7 @@ export const Nav = [
       ],
     },  
 
-    // 专题
+    /* // 专题
     {
       text: '🛠️专题',
       items: [
@@ -245,30 +247,30 @@ export const Nav = [
     },  
 
 
-    // // 兴趣
-    // {
-    //   text: '🎨兴趣',
-    //   items: [
-    //     {
-    //       text: `
-    //         <div style="display: flex; align-items: center; gap: 4px;">
-    //           <img src="/img/nav/旅行.svg" alt="" style="width: 16px; height: 16px;">
-    //           <span>旅行</span>
-    //         </div>
-    //         `,
-    //       link: '/xingqu/travel',
-    //     },
-    //     {
-    //       text: `
-    //         <div style="display: flex; align-items: center; gap: 4px;">
-    //           <img src="/img/nav/读书.svg" alt="" style="width: 16px; height: 16px;">
-    //           <span>读书</span>
-    //         </div>
-    //         `,
-    //       link: '/xingqu/reading',
-    //     },
-    //   ],
-    // },  
+    // 兴趣
+    {
+      text: '🎨兴趣',
+      items: [
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/旅行.svg" alt="" style="width: 16px; height: 16px;">
+              <span>旅行</span>
+            </div>
+            `,
+          link: '/xingqu/travel',
+        },
+        {
+          text: `
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <img src="/img/nav/读书.svg" alt="" style="width: 16px; height: 16px;">
+              <span>读书</span>
+            </div>
+            `,
+          link: '/xingqu/reading',
+        },
+      ],
+    },  
     
     
     // 索引
@@ -407,5 +409,5 @@ export const Nav = [
           link: '/about/ql-timer',
         },  
       ],
-    },       
+    },    */    
   ]
