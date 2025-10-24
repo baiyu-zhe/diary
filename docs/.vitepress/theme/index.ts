@@ -1,3 +1,4 @@
+import { ls, ss } from "./ssr-safe.ts"; // 解决打包ssr验证报错问题
 // 组件导入
 import Teek from "vitepress-theme-teek";
 import TeekLayoutProvider from "./components/TeekLayoutProvider.vue";

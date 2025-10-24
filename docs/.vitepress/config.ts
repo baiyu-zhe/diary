@@ -1,3 +1,4 @@
+import "./theme/ssr-safe.ts"; // 解决watch(immediate) 报错
 import { defineConfig } from "vitepress";
 import { defineTeekConfig } from "vitepress-theme-teek/config";
 import { version } from "vitepress-theme-teek/es/version";
