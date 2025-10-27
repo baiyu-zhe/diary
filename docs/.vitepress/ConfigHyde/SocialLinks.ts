@@ -1,10 +1,10 @@
 import { gitee, email, WhatsApp, telegram } from "../theme/icon/icons";
 
 export const SocialLinks = [
-  {
-    icon: { svg: gitee },
-    link: "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public",
-  },
+  // {
+  //   icon: { svg: gitee },
+  //   link: "https://cnb.cool/onedayxyy/vitepress-theme-teek-one-public",
+  // },
   // {
   //   icon: { svg: email },
   //   link: "mailto:2675263825@qq.com",
